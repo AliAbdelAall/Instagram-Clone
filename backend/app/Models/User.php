@@ -64,11 +64,6 @@ class User extends Authenticatable
         return [];
     }
 
-    public function profile()
-    {
-        $this->hasOne(Profile::class);
-    }
-
     public function folowers()
     {
         $this->hasMany(User::class);

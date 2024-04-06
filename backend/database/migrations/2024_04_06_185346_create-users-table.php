@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('email');
             $table->string('password');
+            $table->string('full_name');
+            $table->string('bio');
             $table->string('profile_image');
         });
     }
