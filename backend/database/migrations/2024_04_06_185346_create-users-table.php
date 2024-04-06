@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('bio');
             $table->string('profile_image');
+            $table->timestamps();
         });
     }
 
