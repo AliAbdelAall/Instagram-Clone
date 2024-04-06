@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,5 +62,30 @@ class User extends Authenticatable
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function folowers()
+    {
+        $this->hasMany(User::class);
+    }
+    
+    public function folowings()
+    {
+        $this->hasMany(User::class);
+    }
+
+    public function post()
+    {
+        $this->hasMany(Post::class);
+    }
+
+    public function likes()
+    {
+        $this->hasMany(Like::class);
+    }
+
+    public function comments()
+    {
+        $this->hasMany(Comment::class);
     }
 }
