@@ -14,12 +14,19 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
+    {   
+        dd("validating...");
         $request->validate([
-            'email' => 'required|string|email',
+            'identifier' => 'required|string',
             'password' => 'required|string',
         ]);
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('identifier', 'password');
+
+        if(filter_var($credentials['identifier'], FILTER_VALIDATE_EMAIL)){
+            $token = Auth::attempt(['email' => $credentials['identifier'], 'password' => $credentials['password']]);
+        }else{
+            $token = Auth::attempt(['username' => $credentials['identifier'], 'password' => $credentials['password']]);
+        }
 
         $token = Auth::attempt($credentials);
         if (!$token) {
@@ -41,17 +48,21 @@ class AuthController extends Controller
 
     }
 
-    public function register(Request $request){
+    public function signup(Request $request){
         $request->validate([
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'full_name' => 'required|string|min:8',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|min:6',
+
         ]);
 
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
+            'full_name' => $request->full_name,
+            'username' => $request->name,
             'password' => Hash::make($request->password),
+
         ]);
 
         $token = Auth::login($user);
