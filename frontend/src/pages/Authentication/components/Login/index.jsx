@@ -6,6 +6,7 @@ import "./style.css"
 
 // components
 import Input from '../../../../components/Input'
+import Button from '../../../../components/Button'
 
 
 const Login = () => {
@@ -23,7 +24,10 @@ const Login = () => {
         placeholder={'Password'}
         // handleChange={}
         />
-        <button className='login-btn white bold text-sm bg-primary'>Log in</button>
+        <Button
+        text={"Log in"}
+        // handleClick={}
+        />
       </div>
       <div className='flex center  login-switch'>
         <p className='text-sm'>Don't have an account? </p> 
