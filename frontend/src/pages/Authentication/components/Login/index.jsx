@@ -10,7 +10,7 @@ import "./style.css"
 // components
 import Input from '../../../../components/Input'
 import Button from '../../../../components/Button'
-import { switchToSignup } from '../../../../Core/redux/Auth';
+import { switchToSignup, updateIdentifier, updatePassword} from '../../../../Core/redux/Auth';
 
 
 const Login = () => {
@@ -52,12 +52,16 @@ const Login = () => {
         <Input
         type={"text"}
         placeholder={'Username, or email'}
-        handleChange={(e) => handleInputChange(e.target.value, "identifier")}
+        handleChange={(e) => {
+          const change = updateIdentifier(e.target.value) 
+          dispatcher(change)}}
         />
         <Input
         type={"password"}
         placeholder={'Password'}
-        handleChange={(e) => handleInputChange(e.target.value, "password")}
+        handleChange={(e) => {
+          const change = updatePassword(e.target.value) 
+          dispatcher(change)}}
         />
         <Button
         text={"Log in"}
@@ -72,7 +76,7 @@ const Login = () => {
         onClick={()=>{
           const switchSignup = switchToSignup()
           dispatcher(switchSignup)
-        }} 
+        }}
         >
           Sign up
         </Link>

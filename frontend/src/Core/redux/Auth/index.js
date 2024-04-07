@@ -16,20 +16,43 @@ export const registrationSlice = createSlice({
   name: "registrationSlice",
   reducers: {
     switchToLogin: (state, action) => {
-      const payload = action.payload
-      console.log(payload)
       state.isLogin = true
     },
 
     switchToSignup: (state, action) => {
-      const payload = action.payload
-      console.log(payload)
       state.isLogin = false
-    }
+    },
+
+    updateIdentifier: (state, action) => {
+      state.identifier = action.payload
+    },
+    updateEmail: (state, action) => {
+      state.email = action.payload
+    },
+
+    updateUsername: (state, action) => {
+      state.username = action.payload
+    },
+
+    updateFullName: (state, action) => {
+      state.fullName = action.payload
+    },
+
+    updatePassword: (state, action) => {
+      state.password = action.payload
+    },
   }
 })
 
-export const { switchToLogin, switchToSignup } = registrationSlice.actions
+export const {
+  switchToLogin,
+  switchToSignup,
+  updateIdentifier,
+  updateEmail,
+  updateUsername,
+  updateFullName,
+  updatePassword
+} = registrationSlice.actions
 
 export const registrationSliceName = registrationSlice.name
 
