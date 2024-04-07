@@ -11,22 +11,26 @@ const initState = {
   errorMessge: ""
 }
 
-export const registration = createSlice({
+export const registrationSlice = createSlice({
   initialState: initState,
   name: "registrationSlice",
   reducers: {
     switchToLogin: (state, action) => {
       const payload = action.payload
       console.log(payload)
-
       state.isLogin = true
     },
 
     switchToSignup: (state, action) => {
       const payload = action.payload
       console.log(payload)
-
-      state.isLogin = true
+      state.isLogin = false
     }
   }
 })
+
+export const { switchToLogin, switchToSignup } = registrationSlice.actions
+
+export const registrationSliceName = registrationSlice.name
+
+export default registrationSlice.reducer

@@ -3,7 +3,7 @@ const setLocalUser = (token) => {
 }
 
 const getLocalUser = () => {
-  const user = localStorage.token
+  const token = localStorage.token
   if (token) {
     return JSON.parse(token)
   } else {

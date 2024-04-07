@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
-import {useLocation, Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+
+// redux
+import { useDispatch } from "react-redux";
 
 // styles
 import "./style.css"
@@ -7,6 +10,7 @@ import "./style.css"
 // components
 import Input from '../../../../components/Input'
 import Button from '../../../../components/Button'
+import { switchToSignup } from '../../../../Core/redux/Auth';
 
 
 const Login = () => {
@@ -23,7 +27,7 @@ const Login = () => {
     status: false,
     field: ""
   }
-
+  const dispatcher = useDispatch()
   const [credentials, setCredentials] = useState(initCredentials)
   const [error, setError] = useState(initError)
   const handleInputChange = (value, field) => {
@@ -64,7 +68,11 @@ const Login = () => {
         <p className='text-sm'>Don't have an account? </p> 
         <Link 
         className='text-sm switch-link'
-        to="/Signup"
+        to="/signup"
+        onClick={()=>{
+          const switchSignup = switchToSignup()
+          dispatcher(switchSignup)
+        }} 
         >
           Sign up
         </Link>

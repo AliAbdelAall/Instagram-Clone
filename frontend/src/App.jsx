@@ -7,6 +7,10 @@ import "./styles/main.css";
 import "./styles/colors.css";
 import "./styles/utilities.css";
 
+// Redux
+import { Provider } from "react-redux";
+import { store } from "./Core/redux/store"
+
 // taostify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,21 +24,22 @@ import Signup from "./pages/Authentication/components/Signup";
 
 function App() {
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="*" element={<Navigate to="/auth/login" />} />
-      <Route path="/auth" element={<Auth/>}>
-        <Route path="login" index element={<Login/>}/>
-        <Route path="signup" element={<Signup/>}/>
-      </Route>
+    <Provider store={store}>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Auth/>}>
+          <Route index element={<Login/>}/>
+          <Route path="signup" element={<Signup/>}/>
+        </Route>
 
-      {/* <Route path="/main" element={<Main/>}>
-        <Route path="feed" index element={<Feed/>}/>
-        <Route path="profile" element={<Profile/>}/>
-      </Route> */}
+        {/* <Route path="/main" element={<Main/>}>
+          <Route path="feed" index element={<Feed/>}/>
+          <Route path="profile" element={<Profile/>}/>
+        </Route> */}
 
-    </Routes>
-    </BrowserRouter>
+      </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
