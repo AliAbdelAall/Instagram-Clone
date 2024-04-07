@@ -1,37 +1,19 @@
 import React, {useState} from 'react'
 import { Link } from "react-router-dom"
 
+// redux
+import { useDispatch } from "react-redux"
+import { switchToLogin, updateEmail, updateUsername, updateFullName, updatePassword } from '../../../../Core/redux/Auth'
+
 // components
 import Input from '../../../../components/Input'
 import Button from '../../../../components/Button'
-import { switchToLogin } from '../../../../Core/redux/Auth'
-import { useDispatch } from "react-redux"
+
 
 
 const Signup = () => {
-  const initCredentials = {
-    identifier: "",
-    email: "",
-    username: "",
-    fullName: "",
-    password: ""
-  }
-
-  const initError = {
-    status: false,
-    field: ""
-  }
+ 
   const dispatcher = useDispatch()
-  const [credentials, setCredentials] = useState(initCredentials)
-  const [error, setError] = useState(initError)
-
-
-  const handleInputChange = (value, field) => {
-    setCredentials({...credentials, [field]: value})
-  }
-
-  console.log(credentials)
-
 
   return (
     <div className='flex column center login-wrapper'>
@@ -40,22 +22,30 @@ const Signup = () => {
         <Input
         type={"text"}
         placeholder={'Email'}
-        handleChange={(e) => handleInputChange(e.target.value, "email")}
+        handleChange={(e) => {
+          const change = updateEmail(e.target.value)
+          dispatcher(change)}}
         />
         <Input
         type={"text"}
         placeholder={'Full Name'}
-        handleChange={(e) => handleInputChange(e.target.value, "fullName")}
+        handleChange={(e) => {
+          const change = updateFullName(e.target.value)
+          dispatcher(change)}}
         />
         <Input
         type={"text"}
         placeholder={'Username'}
-        handleChange={(e) => handleInputChange(e.target.value, "username")}
+        handleChange={(e) => {
+          const change = updateUsername(e.target.value)
+          dispatcher(change)}}
         />
         <Input
         type={"password"}
         placeholder={'Password'}
-        handleChange={(e) => handleInputChange(e.target.value, "password")}
+        handleChange={(e) => {
+          const change = updatePassword(e.target.value)
+          dispatcher(change)}}
         />
         <Button
         text={"Signup"}

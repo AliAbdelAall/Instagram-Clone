@@ -10,18 +10,21 @@ import "./style.css"
 // components
 import Input from '../../../../components/Input'
 import Button from '../../../../components/Button'
-import { switchToSignup, updateIdentifier, updatePassword} from '../../../../Core/redux/Auth';
+import { switchToSignup, updateIdentifier, updatePassword } from '../../../../Core/redux/Auth';
 
 
 const Login = () => {
 
-  const ValidateLogin = () => {
-    const { identifier, password } = credentials
-    if(!identifier){
-      setError({...error, status:true, field:identifier})
-      return
-    }
-  }
+  const dispatcher = useDispatch()
+ 
+  // const ValidateLogin = () => {
+  //   const { identifier, password } = credentials
+  //   if(!identifier){
+  //     setError({...error, status:true, field:identifier})
+  //     return
+  //   }
+  //   // if(!)
+  // }
 
   return (
     <div className='flex column center login-wrapper'>
