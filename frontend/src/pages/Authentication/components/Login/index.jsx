@@ -15,34 +15,12 @@ import { switchToSignup, updateIdentifier, updatePassword} from '../../../../Cor
 
 const Login = () => {
 
-  const initCredentials = {
-    identifier: "",
-    email: "",
-    username: "",
-    fullName: "",
-    password: ""
-  }
-
-  const initError = {
-    status: false,
-    field: ""
-  }
-  const dispatcher = useDispatch()
-  const [credentials, setCredentials] = useState(initCredentials)
-  const [error, setError] = useState(initError)
-  const handleInputChange = (value, field) => {
-    setCredentials({...credentials, [field]: value})
-  }
-
-  console.log(credentials)
-
   const ValidateLogin = () => {
     const { identifier, password } = credentials
     if(!identifier){
       setError({...error, status:true, field:identifier})
       return
     }
-    // if(!)
   }
 
   return (
