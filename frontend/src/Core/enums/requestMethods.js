@@ -1,6 +1,6 @@
 export const requestMethods = {
-  GET: "GET",
   POST: "POST",
+  GET: "GET",
   PUT: "PUT",
-  DELETE: "DELETE"
-}
+  DELETE: "DELETE",
+};

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useLocation, Link} from "react-router-dom"
 
 // styles
@@ -10,6 +10,37 @@ import Button from '../../../../components/Button'
 
 
 const Login = () => {
+
+  const initCredentials = {
+    identifier: "",
+    email: "",
+    username: "",
+    fullName: "",
+    password: ""
+  }
+
+  const initError = {
+    status: false,
+    field: ""
+  }
+
+  const [credentials, setCredentials] = useState(initCredentials)
+  const [error, setError] = useState(initError)
+  const handleInputChange = (value, field) => {
+    setCredentials({...credentials, [field]: value})
+  }
+
+  console.log(credentials)
+
+  const ValidateLogin = () => {
+    const { identifier, password } = credentials
+    if(!identifier){
+      setError({...error, status:true, field:identifier})
+      return
+    }
+    // if(!)
+  }
+
   return (
     <div className='flex column center login-wrapper'>
       <div className='flex column center input-wrapper'>
@@ -17,12 +48,12 @@ const Login = () => {
         <Input
         type={"text"}
         placeholder={'Username, or email'}
-        // handleChange={}
+        handleChange={(e) => handleInputChange(e.target.value, "identifier")}
         />
         <Input
         type={"password"}
         placeholder={'Password'}
-        // handleChange={}
+        handleChange={(e) => handleInputChange(e.target.value, "password")}
         />
         <Button
         text={"Log in"}
