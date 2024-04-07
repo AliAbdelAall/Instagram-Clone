@@ -4,6 +4,9 @@
 .text-primary {
   color: var(--primary-col);
 }
+.text-secondary {
+  color: var( --secondary-col);
+}
 
 .bg-gray-col{
   background-color: var(--gray-col)
