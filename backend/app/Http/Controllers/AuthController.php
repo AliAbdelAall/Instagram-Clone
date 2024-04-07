@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {   
-        dd("validating...");
+        echo "validating";
         $request->validate([
             'identifier' => 'required|string',
             'password' => 'required|string',
@@ -28,7 +28,6 @@ class AuthController extends Controller
             $token = Auth::attempt(['username' => $credentials['identifier'], 'password' => $credentials['password']]);
         }
 
-        $token = Auth::attempt($credentials);
         if (!$token) {
             return response()->json([
                 'status' => 'error',
@@ -48,7 +47,7 @@ class AuthController extends Controller
 
     }
 
-    public function signup(Request $request){
+    public function register(Request $request){
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'full_name' => 'required|string|min:8',
@@ -60,7 +59,7 @@ class AuthController extends Controller
         $user = User::create([
             'email' => $request->email,
             'full_name' => $request->full_name,
-            'username' => $request->name,
+            'username' => $request->username,
             'password' => Hash::make($request->password),
 
         ]);

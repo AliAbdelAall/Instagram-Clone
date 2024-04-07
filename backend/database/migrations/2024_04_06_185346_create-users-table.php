@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('full_name');
-            $table->string('bio');
-            $table->string('profile_image');
+            $table->string('bio')->nullable();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }
