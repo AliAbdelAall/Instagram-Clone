@@ -1,18 +1,18 @@
 const setLocalUser = (token) => {
-  localStorage.user = JSON.stringify(token)
+  localStorage.token = JSON.stringify(token)
 }
 
 const getLocalUser = () => {
-  const user = localStorage
-  if (user) {
-    return JSON.parse(user)
+  const user = localStorage.token
+  if (token) {
+    return JSON.parse(token)
   } else {
     return false
   }
 }
 
 const removeLocalUser = () => {
-  localStorage.removeItem('user')
+  localStorage.removeItem('token')
 }
 
 
