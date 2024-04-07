@@ -8,6 +8,10 @@
   color: var( --secondary-col);
 }
 
+.text-error{
+  color: var(--error-col);
+}
+
 .bg-gray-col{
   background-color: var(--gray-col)
 }

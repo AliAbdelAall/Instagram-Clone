@@ -8,7 +8,7 @@ const initState = {
   password: "",
   isLogin: true,
   error: false,
-  errorMessge: ""
+  errorMessage: ""
 }
 
 export const registrationSlice = createSlice({
@@ -27,41 +27,41 @@ export const registrationSlice = createSlice({
     updateIdentifier: (state, action) => {
       state.identifier = action.payload
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     },
 
     updateEmail: (state, action) => {
       state.email = action.payload
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     },
 
     updateUsername: (state, action) => {
       state.username = action.payload
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     },
 
     updateFullName: (state, action) => {
       state.fullName = action.payload
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     },
 
     updatePassword: (state, action) => {
       state.password = action.payload
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     },
 
     setError: (state, action) => {
       state.error = true
-      state.errorMessge = action.payload
+      state.errorMessage = action.payload
     },
 
     resetError: (state, action) => {
       state.error = false
-      state.errorMessge = ""
+      state.errorMessage = ""
     }
   }
 })

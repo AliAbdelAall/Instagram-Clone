@@ -7,6 +7,9 @@
 .text-sm {
   font-size: var(--font-size-sm);
 }
+.text-xsm {
+  font-size: var(--font-size-xsm);
+}
 .text-center {
   text-align: center;
 }

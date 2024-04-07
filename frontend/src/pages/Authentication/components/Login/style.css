@@ -51,3 +51,8 @@
 .login-switch > .switch-link{
   color: var(--secondary-col);
 }
+
+.error-text{
+  align-self: flex-start;
+  margin-left: 25px;
+}

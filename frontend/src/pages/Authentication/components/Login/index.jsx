@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom"
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { registrationSliceName, switchToSignup, updateIdentifier, updatePassword, setError } from '../../../../Core/redux/Auth';
 
 // styles
 import "./style.css"
@@ -10,26 +11,45 @@ import "./style.css"
 // components
 import Input from '../../../../components/Input'
 import Button from '../../../../components/Button'
-import { switchToSignup, updateIdentifier, updatePassword } from '../../../../Core/redux/Auth';
+
+// Tools
+import { sendRequest } from '../../../../Core/Tools/remote/request';
+import { requestMethods } from '../../../../Core/enums/requestMethods';
+import { setLocalUser } from '../../../../Core/Tools/local/user';
 
 
 const Login = () => {
-
+  const { identifier, password, error, errorMessage } = useSelector((global) => global[registrationSliceName])
+  console.log(identifier, password, error, errorMessage)
   const dispatcher = useDispatch()
  
-  // const ValidateLogin = () => {
-  //   const { identifier, password } = credentials
-  //   if(!identifier){
-  //     setError({...error, status:true, field:identifier})
-  //     return
-  //   }
-  //   // if(!)
-  // }
+  const ValidateLogin = () => {
+    if(!identifier){
+      const errorAction = setError('Invalid username or email')
+      dispatcher(errorAction)
+      return
+    }
+    if(password.length < 8){
+      const errorAction = setError('Password must be at least 8 characters')
+      dispatcher(errorAction)
+      return
+    }
+
+    sendRequest(requestMethods.POST, "/login", {
+      identifier,
+      password,
+    }).then((response) =>{
+      if(response.data.status === 'success'){
+        setLocalUser(response.data.authorisation.token)
+      }
+    })
+  }
 
   return (
     <div className='flex column center login-wrapper'>
       <div className='flex column center input-wrapper'>
         <h1>Instagram</h1>
+        {error && <p className='text-xsm text-error error-text'>{errorMessage}</p>}
         <Input
         type={"text"}
         placeholder={'Username, or email'}
@@ -46,10 +66,10 @@ const Login = () => {
         />
         <Button
         text={"Log in"}
-        // handleClick={}
+        handleClick={ValidateLogin}
         />
       </div>
-      <div className='flex center  login-switch'>
+      <div className='flex center login-switch'>
         <p className='text-sm'>Don't have an account? </p> 
         <Link 
         className='text-sm switch-link'
