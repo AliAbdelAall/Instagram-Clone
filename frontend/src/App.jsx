@@ -17,10 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Layouts
 import Auth from "./pages/Authentication"
+import Main from "./pages/Main";
 
 // Auth components
 import Login from "./pages/Authentication/components/Login";
 import Signup from "./pages/Authentication/components/Signup";
+import Feed from "./pages/Main/Feed";
+import Profile from "./pages/Main/Profile";
 
 function App() {
   return (
@@ -44,10 +47,10 @@ function App() {
           <Route path="signup" element={<Signup/>}/>
         </Route>
 
-        {/* <Route path="/main" element={<Main/>}>
-          <Route path="feed" index element={<Feed/>}/>
+        <Route path="/main" element={<Main/>}>
+          <Route index element={<Feed/>}/>
           <Route path="profile" element={<Profile/>}/>
-        </Route> */}
+        </Route>
 
       </Routes>
       </BrowserRouter>

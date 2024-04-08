@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
-import { Link } from "react-router-dom"
+import React from 'react'
+import { Link, useNavigate } from "react-router-dom"
+
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,7 @@ const Login = () => {
   const { identifier, password, error, errorMessage } = useSelector((global) => global[registrationSliceName])
   console.log(identifier, password, error, errorMessage)
   const dispatcher = useDispatch()
+  const navigate = useNavigate()
  
   const ValidateLogin = () => {
     if(!identifier){
@@ -45,12 +47,17 @@ const Login = () => {
       identifier,
       password,
     }).then((response) =>{
-      if(response.data.status === 'success'){
+      console .log(response.data)
+      if(response.data.status === "success"){
         setLocalUser(response.data.authorisation.token)
         toast.success("Login successful")
+        navigate('/main')
+      }else{
+        toast.error("Incorrect username or password")
       }
     }).catch((error) => {
-      toast.error("Incorrect username or password")
+      toast.error("Something Went Wrong")
+      console.error(error)
     })
   }
 
