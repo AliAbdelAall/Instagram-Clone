@@ -26,6 +26,18 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       <Routes>
         <Route path="/" element={<Auth/>}>
           <Route index element={<Login/>}/>

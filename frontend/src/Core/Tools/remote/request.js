@@ -18,7 +18,8 @@ export const sendRequest = async (method, route, body) => {
 
     return response
   } catch (error) {
-    if (response.data.status === 401) {
+    const { status } = error.response;
+    if (status === 401) {
       removeLocalUser()
       window.location.replace("/");
     }

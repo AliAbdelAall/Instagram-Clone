@@ -5,6 +5,9 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { registrationSliceName, switchToSignup, updateIdentifier, updatePassword, setError } from '../../../../Core/redux/Auth';
 
+// Taostify
+import { toast } from 'react-toastify'
+
 // styles
 import "./style.css"
 
@@ -18,7 +21,10 @@ import { requestMethods } from '../../../../Core/enums/requestMethods';
 import { setLocalUser } from '../../../../Core/Tools/local/user';
 
 
+
 const Login = () => {
+
+  
   const { identifier, password, error, errorMessage } = useSelector((global) => global[registrationSliceName])
   console.log(identifier, password, error, errorMessage)
   const dispatcher = useDispatch()
@@ -41,7 +47,10 @@ const Login = () => {
     }).then((response) =>{
       if(response.data.status === 'success'){
         setLocalUser(response.data.authorisation.token)
+        toast.success("Login successful")
       }
+    }).catch((error) => {
+      toast.error("Incorrect username or password")
     })
   }
 
