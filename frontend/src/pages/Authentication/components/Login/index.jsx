@@ -53,7 +53,8 @@ const Login = () => {
         toast.success("Login successful")
         navigate('/main')
       }else{
-        toast.error("Incorrect username or password")
+        const errorAction = setError("Incorrect username or password") 
+        dispatcher(errorAction)
       }
     }).catch((error) => {
       toast.error("Something Went Wrong")
