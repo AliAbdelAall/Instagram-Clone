@@ -63,6 +63,9 @@
 .align-start{
   align-items: start;
 }
+.align-self-start{
+  align-self: start;
+}
 
 .wrap{
   flex-wrap: wrap;
