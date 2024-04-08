@@ -3,15 +3,7 @@ import { Link, useNavigate  } from "react-router-dom"
 
 // redux
 import { useDispatch, useSelector } from "react-redux"
-import { 
-  registrationSliceName, 
-  switchToLogin, 
-  updateEmail, 
-  updateUsername, 
-  updateFullName, 
-  updatePassword, 
-  setError, 
-  } from '../../../../Core/redux/Auth'
+import { registrationSliceName, switchToLogin, handleInputChange, setError, } from '../../../../Core/redux/Auth'
 
 // Toastify
 import {toast} from "react-toastify"
@@ -84,28 +76,28 @@ const Signup = () => {
         type={"text"}
         placeholder={'Email'}
         handleChange={(e) => {
-          const change = updateEmail(e.target.value)
+          const change = handleInputChange({key: "email", value: e.target.value})
           dispatcher(change)}}
         />
         <Input
         type={"text"}
         placeholder={'Full Name'}
         handleChange={(e) => {
-          const change = updateFullName(e.target.value)
+          const change = handleInputChange({key: "fullName", value: e.target.value})
           dispatcher(change)}}
         />
         <Input
         type={"text"}
         placeholder={'Username'}
         handleChange={(e) => {
-          const change = updateUsername(e.target.value)
+          const change = handleInputChange({key: "username", value: e.target.value})
           dispatcher(change)}}
         />
         <Input
         type={"password"}
         placeholder={'Password'}
         handleChange={(e) => {
-          const change = updatePassword(e.target.value)
+          const change = handleInputChange({key: "password", value: e.target.value})
           dispatcher(change)}}
         />
         <Button

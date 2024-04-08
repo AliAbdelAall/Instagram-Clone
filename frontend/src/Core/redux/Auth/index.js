@@ -24,39 +24,11 @@ export const registrationSlice = createSlice({
       state.isLogin = false
     },
 
-    updateIdentifier: (state, action) => {
-      state.identifier = action.payload
+    handleInputChange: (state, action) => {
+      const { key, value } = action.payload
+      state[key] = value
       state.error = false
       state.errorMessage = ""
-    },
-
-    updateEmail: (state, action) => {
-      state.email = action.payload
-      state.error = false
-      state.errorMessage = ""
-    },
-
-    updateUsername: (state, action) => {
-      state.username = action.payload
-      state.error = false
-      state.errorMessage = ""
-    },
-
-    updateFullName: (state, action) => {
-      state.fullName = action.payload
-      state.error = false
-      state.errorMessage = ""
-    },
-
-    updatePassword: (state, action) => {
-      state.password = action.payload
-      state.error = false
-      state.errorMessage = ""
-    },
-
-    setError: (state, action) => {
-      state.error = true
-      state.errorMessage = action.payload
     },
 
     resetError: (state, action) => {
@@ -69,11 +41,7 @@ export const registrationSlice = createSlice({
 export const {
   switchToLogin,
   switchToSignup,
-  updateIdentifier,
-  updateEmail,
-  updateUsername,
-  updateFullName,
-  updatePassword,
+  handleInputChange,
   setError,
   resetError
 } = registrationSlice.actions

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { registrationSliceName, switchToSignup, updateIdentifier, updatePassword, setError } from '../../../../Core/redux/Auth';
+import { registrationSliceName, switchToSignup, handleInputChange, setError } from '../../../../Core/redux/Auth';
 
 // Taostify
 import { toast } from 'react-toastify'
@@ -70,14 +70,14 @@ const Login = () => {
         type={"text"}
         placeholder={'Username, or email'}
         handleChange={(e) => {
-          const change = updateIdentifier(e.target.value) 
+          const change = handleInputChange({key: "identifier", value: e.target.value}) 
           dispatcher(change)}}
         />
         <Input
         type={"password"}
         placeholder={'Password'}
         handleChange={(e) => {
-          const change = updatePassword(e.target.value) 
+          const change = handleInputChange({key: "password", value: e.target.value})
           dispatcher(change)}}
         />
         <Button
