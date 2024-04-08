@@ -47,9 +47,8 @@ const Login = () => {
       identifier,
       password,
     }).then((response) =>{
-      console .log(response.data)
-      if(response.data.status === "success"){
-        setLocalUser(response.data.authorisation.token)
+      if(response.data.status === 'success'){
+        setLocalUser(response.data.token)
         toast.success("Login successful")
         navigate('/main')
       }else{

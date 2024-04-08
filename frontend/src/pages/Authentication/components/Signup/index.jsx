@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link, useNavigate  } from "react-router-dom"
 
 // redux
 import { useDispatch, useSelector } from "react-redux"
@@ -31,6 +31,7 @@ const Signup = () => {
 
   const { email, username, fullName, password, error, errorMessage} = useSelector((global) => global[registrationSliceName])
   const dispatcher = useDispatch()
+  const navigate = useNavigate()
 
   const validateSignup = () => {
     const regex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
@@ -61,9 +62,8 @@ const Signup = () => {
       username,
       password
     }).then((response) => {
-      console .log(response.data)
-      if(response.data.status){
-        setLocalUser(response.data.authorisation.token)
+      if(response.data.status === 'success'){
+        setLocalUser(response.data.token)
         toast.success('Login successful')
         navigate('/main')
       }else if (response.data.message){
