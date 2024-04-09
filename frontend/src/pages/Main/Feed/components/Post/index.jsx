@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 // images
 import heart from "../../../../../assets/icons/heart.svg"
@@ -7,6 +7,7 @@ import commentIcon from "../../../../../assets/icons/comment.svg"
 
 // Redux
 import { useDispatch } from "react-redux"
+import { toggleLiked } from '../../../../../Core/redux/Feed/Feed'
 
 // Toastify
 import { toast } from "react-toastify"
@@ -15,11 +16,18 @@ import { toast } from "react-toastify"
 import { requestMethods } from '../../../../../Core/enums/requestMethods'
 import { sendRequest } from '../../../../../Core/Tools/remote/request'
 
-const Post = ({ id, profileImage, username, postImage, liked, likes, caption, handleLikedSwitch }) => {
+const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) => {
 
   const [myComment, setMyComment] = useState("")
-  
   const dispatcher = useDispatch()
+
+//   useEffect(() => {
+//     const controller = new AbortController();
+    
+//     return () => {
+//         return controller.abort();
+//     };
+// }, []);
 
   const handlePostClick = () => {
     sendRequest(requestMethods.POST, "/save-comment",{
@@ -34,6 +42,34 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption, ha
       toast.error("Something went wrong")
     })
   }
+
+  const handleLikedSwitch = (id) => {
+
+    liked ? 
+    sendRequest(requestMethods.DELETE,"/delete-like",{
+      post_id: id
+    }).then((response) => {
+      if(response.status === 204){
+        const toggle = toggleLiked(id)
+        dispatcher(toggle)
+      }
+    }).catch((error)=> {
+      toast.error("Something went wrong")
+    })
+    :
+    sendRequest(requestMethods.POST, "add-like", {
+      post_id:id
+    }).then((response) => {
+      if(response.status === 201){
+        const toggle = toggleLiked(id)
+        dispatcher(toggle)
+      }
+    }).catch((error)=> {
+      toast.error("Something went wrong")
+    })
+    
+  }
+
 
   return (
     <div className='flex column post-wrapper'>

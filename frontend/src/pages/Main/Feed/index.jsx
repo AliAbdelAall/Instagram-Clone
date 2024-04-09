@@ -48,12 +48,6 @@ const Feed = () => {
     navigate("/")
   }
 
-  const handleLikedSwitch = (id) => {
-    const toggle = toggleLiked(id)
-    dispatcher(toggle)
-  }
-
-
   return (
     <div className='flex center feed-continer'>
       <div className='flex column posts-container'>
@@ -66,7 +60,6 @@ const Feed = () => {
         profileImage={defaultProfile} 
         username={post.user.username}
         postImage={postImage}
-        handleLikedSwitch={handleLikedSwitch} 
         liked={post.liked} 
         likes={post.likes} 
         caption={post.caption} 
