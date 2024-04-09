@@ -8,13 +8,32 @@ import commentIcon from "../../../../../assets/icons/comment.svg"
 // Redux
 import { useDispatch } from "react-redux"
 
+// Toastify
+import { toast } from "react-toastify"
+
 // Utilities
 import { requestMethods } from '../../../../../Core/enums/requestMethods'
 import { sendRequest } from '../../../../../Core/Tools/remote/request'
 
 const Post = ({ id, profileImage, username, postImage, liked, likes, caption, handleLikedSwitch }) => {
 
+  const [myComment, setMyComment] = useState("")
   
+  const dispatcher = useDispatch()
+
+  const handlePostClick = () => {
+    sendRequest(requestMethods.POST, "/save-comment",{
+      post_id: id,
+      comment: myComment
+    }).then((response) => {
+      if(response.status === 201){
+        const addComment = addComment({postId: id, comment: response.data.comment})
+        dispatcher(addComment)
+      }
+    }).catch((error)=> {
+      toast.error("Something went wrong")
+    })
+  }
 
   return (
     <div className='flex column post-wrapper'>
