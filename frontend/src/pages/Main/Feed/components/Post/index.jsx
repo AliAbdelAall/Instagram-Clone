@@ -24,7 +24,7 @@ const Post = ({profileImage, postImage, liked, likes, caption, myComment,setComm
           </div>
 
           <p className='post_likes text-sm'>{likes} likes</p>
-          <p className='post-caption text-sm'>{caption}</p>
+          {caption && <p className='post-caption text-sm'>{caption}</p>}
 
           <div className='flex space-between comment-post'> 
             <textarea

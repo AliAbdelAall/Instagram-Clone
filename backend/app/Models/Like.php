@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Post;
 
 class Like extends Model
 {
@@ -16,11 +17,11 @@ class Like extends Model
 
     public function user()
     {
-        $this->belongsTo(USer::class);
+        return $this->belongsTo(USer::class);
     }
 
     public function post()
     {
-        $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class);
     }
 }

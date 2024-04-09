@@ -16,6 +16,8 @@ const Feed = () => {
   const [liked, setLiked] = useState(false)
   const [comment, setComment] = useState("")
 
+  
+
   return (
     <div className='flex center feed-continer'>
       <div className='flex column posts-container'>

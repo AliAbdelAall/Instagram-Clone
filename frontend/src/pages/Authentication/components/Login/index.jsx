@@ -25,9 +25,7 @@ import { setLocalUser } from '../../../../Core/Tools/local/user';
 
 const Login = () => {
 
-  
   const { identifier, password, error, errorMessage } = useSelector((global) => global[registrationSliceName])
-  console.log(identifier, password, error, errorMessage)
   const dispatcher = useDispatch()
   const navigate = useNavigate()
  

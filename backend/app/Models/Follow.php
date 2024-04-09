@@ -16,11 +16,11 @@ class Follow extends Model
 
     public function folowed()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function folowing()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

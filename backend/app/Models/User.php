@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Egulias\EmailValidator\Parser\Comment;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Like;
+use App\Models\Follow;
+use App\Models\Comment;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -82,12 +85,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function likes()
     {
-        $this->hasMany(Like::class);
+        return $this->hasMany(Like::class);
     }
 
     public function comments()
     {
-        $this->hasMany(Comment::class);
+        return$this->hasMany(Comment::class);
     }
 
 }
