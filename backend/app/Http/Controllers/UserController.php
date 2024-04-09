@@ -64,5 +64,25 @@ class UserController extends Controller
             'posts' => $posts], 200);
     }
 
+    public function addComment(Request $req)
+    {
 
+        $id = Auth::user()->id;
+
+        $req->validate([
+            'post_id' => 'required',
+            'comment' => 'required'
+        ]);
+
+        $comment = Comment::create([
+            'user_id' => $id,
+            'post_id' => $req->post_id,
+            'comment' => $req->comment
+        ]);
+
+        return response()->json([
+            'status' => "success",
+            'comment' => $comment
+        ]);
+    }
 }

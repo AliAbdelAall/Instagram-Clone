@@ -24,3 +24,4 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 // User
 Route::post('/get-feed', [UserController::class, 'getFeed']);
+Route::Post('/add-comment', [UserController::class, 'addComment']);
