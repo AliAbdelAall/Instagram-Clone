@@ -12,6 +12,10 @@
   color: var(--error-col);
 }
 
+.text-gray{
+  color: var(--gray-col);
+}
+  
 .bg-gray-col{
   background-color: var(--gray-col)
 }
