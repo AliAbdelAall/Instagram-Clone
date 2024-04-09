@@ -17,12 +17,16 @@ class UserController extends Controller
 
     public function getUserInfo(){
 
-       $user= Auth::user();
-
+        $user= Auth::user();
+        if(!$user){
+            return response()->json([
+                'Unauthorized',
+            ], 401);
+        }
         return response()->json([
             'status' => "success",
             'user' => $user
-        ]);
+        ], 200);
     }
 
 
@@ -40,7 +44,7 @@ class UserController extends Controller
 
         // getting the post and the owner and all the comments of the post
         $posts = Post::whereIn('user_id', $followedUserIds)
-                        ->select('id','caption','post_image')
+                        ->select('id','user_id','caption','post_image')
                         ->with([
                             'user:id,username,profile_image', 
                             'comments:id,user_id,post_id,comment'
@@ -57,7 +61,7 @@ class UserController extends Controller
         }
         return response()->json([
             'user' => $user,
-            'posts' => $posts]);
+            'posts' => $posts], 200);
     }
 
 }

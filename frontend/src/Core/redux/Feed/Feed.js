@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  posts: [
-    {
-      id: 12,
-      image: "123",
-      caption: "sdfas",
-      liked: false,
-      comments: [],
-
-    },
-  ],
+  posts: [],
+  user: {},
   loading: true
 }
 
@@ -19,13 +11,30 @@ export const postsSlice = createSlice({
   name: "postsSlice",
   reducers: {
     setpostsState: (state, action) => {
-      state.loading = false
-      Object.assign(state.posts, action.payload)
+      return {
+        ...state,
+        posts: action.payload.posts,
+        user: action.payload.user,
+        loading: false
+      }
+    },
+
+    toggleLiked: (state, action) => {
+      console.log(action.payload)
+      const postId = action.payload
+      const post = state.posts.find((post) => post.id = postId)
+      post.liked = !post.liked
+    },
+
+    addComment: (state, action) => {
+      const { postId, comment } = action.payload
+      const post = state.posts.find((post) => post.id = postId)
+      post.comments.push(comment)
     }
   }
 })
 
-export const { setpostsState } = postsSlice.actions
+export const { setpostsState, toggleLiked } = postsSlice.actions
 
 export const postsSliceName = postsSlice.name
 

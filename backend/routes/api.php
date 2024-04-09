@@ -17,8 +17,10 @@ use App\Models\User;
 |
 */
 
+// Authentication 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+// User
 Route::post('/get-feed', [UserController::class, 'getFeed']);
-Route::get("get-posts", [UserController::class, 'getPosts']);
-Route::get("get-user", [UserController::class, 'getUser']);

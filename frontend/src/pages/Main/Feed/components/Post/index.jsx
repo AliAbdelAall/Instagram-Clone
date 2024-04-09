@@ -1,24 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 
+// images
 import heart from "../../../../../assets/icons/heart.svg"
 import heartRed from "../../../../../assets/icons/heart-red.svg"
 import commentIcon from "../../../../../assets/icons/comment.svg"
 
-const Post = ({profileImage, postImage, liked, likes, caption, myComment,setComment, setLiked}) => {
+// Redux
+import { useDispatch } from "react-redux"
+
+// Utilities
+import { requestMethods } from '../../../../../Core/enums/requestMethods'
+import { sendRequest } from '../../../../../Core/Tools/remote/request'
+
+const Post = ({ id, profileImage, username, postImage, liked, likes, caption, handleLikedSwitch }) => {
+
+  
+
   return (
     <div className='flex column post-wrapper'>
 
           <div className='flex align-center user_info-post'>
             <img src={profileImage} width={32} hight={32} alt="profile" />
-            <p className='username-post bold text-sm'>username</p>
+            <p className='username-post bold text-sm'>{username}</p>
           </div>
 
           <img src={postImage} alt="Post" />
 
           <div className='flex like-comment'>
             {liked ? 
-            (<img src={heartRed} alt="heart-red" onClick={() => setLiked(false)}/>) :
-            (<img src={heart} alt="heart" onClick={() => setLiked(true)}/>)
+            (<img src={heartRed} alt="heart-red" onClick={() => handleLikedSwitch(id)}/>) :
+            (<img src={heart} alt="heart" onClick={() => handleLikedSwitch(id)}/>)
             }
             <img src={commentIcon} alt="comment" />
           </div>
@@ -30,11 +41,12 @@ const Post = ({profileImage, postImage, liked, likes, caption, myComment,setComm
             <textarea
             className='text-sm'
             type={"text"}
+            value={myComment}
             placeholder={"Add a comment"}
-            onChange={(e) => setComment(e.target.value)}
+            onChange={(e) => setMyComment(e.target.value)}
             ></textarea>
 
-            {myComment && <p className='text-sm text-primary'>Post</p>}
+            {myComment && <p className='text-sm text-primary' onClick={handlePostClick}>Post</p>}
           </div> 
           <div className='sparator bg-gray-col'></div>
         </div>

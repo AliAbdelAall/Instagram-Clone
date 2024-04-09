@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom"
 
 // Styles
 import "./style.css"
@@ -7,61 +8,78 @@ import "./style.css"
 import defaultProfile from "../../../assets/profile/Default_pfp.jpg"
 import postImage from "../../../assets/other/background3.jpg"
 
-// components
+// Components
 import Post from './components/Post'
 import FeedProfile from './components/FeedProfile'
 import SugestedUser from './components/SugestedUser'
 
-const Feed = () => {
-  const [liked, setLiked] = useState(false)
-  const [comment, setComment] = useState("")
+// Taostify
+import { toast } from 'react-toastify'
 
-  
+// Redux
+import { postsSliceName, setpostsState, toggleLiked} from '../../../Core/redux/Feed/Feed'
+import { useDispatch, useSelector } from 'react-redux'
+
+// Utilities
+import { sendRequest } from '../../../Core/Tools/remote/request'
+import { requestMethods } from '../../../Core/enums/requestMethods'
+import { removeLocalUser } from '../../../Core/Tools/local/user'
+
+const Feed = () => {
+
+  const { posts, user, loading } = useSelector((global) => global[postsSliceName])
+  const navigate = useNavigate()
+  const dispatcher = useDispatch()
+
+  useEffect(()=>{
+    sendRequest(requestMethods.POST, "/get-feed") 
+    .then((response)=>{
+      if(response.status === 200){
+        const posts = setpostsState({posts: response.data.posts, user: response.data.user})
+        dispatcher(posts)
+      }
+    }).catch((error)=>{
+      toast.error("Somthing went wrong!")
+    })
+  },[])
+
+  const handleLogout = () => {
+    removeLocalUser()
+    navigate("/")
+  }
+
+  const handleLikedSwitch = (id) => {
+    const toggle = toggleLiked(id)
+    dispatcher(toggle)
+  }
+
 
   return (
     <div className='flex center feed-continer'>
       <div className='flex column posts-container'>
         
+        {loading ? (<p>LOADING...</p>) : 
+        (posts?.map((post, i)=>(
         <Post
+        key={post.id}
+        id = {post.id}
         profileImage={defaultProfile} 
+        username={post.user.username}
         postImage={postImage}
-        setComment={setComment}
-        setLiked={setLiked} 
-        liked={liked} 
-        likes={243} 
-        caption={"this is my caption it should be a little long so we can test the word break inside the post"} 
-        myComment={comment}
+        handleLikedSwitch={handleLikedSwitch} 
+        liked={post.liked} 
+        likes={post.likes} 
+        caption={post.caption} 
         />
-
-        <Post
-        profileImage={defaultProfile} 
-        postImage={postImage}
-        setComment={setComment}
-        setLiked={setLiked} 
-        liked={liked} 
-        likes={243} 
-        caption={"this is my caption it should be a little long so we can test the word break inside the post"} 
-        myComment={comment}
-        />
-
-        <Post
-        profileImage={defaultProfile} 
-        postImage={postImage}
-        setComment={setComment}
-        setLiked={setLiked} 
-        liked={liked} 
-        likes={243} 
-        caption={"this is my caption it should be a little long so we can test the word break inside the post"} 
-        myComment={comment}
-        />
+        )))}
        
       </div>
       <div className='flex column align-self-start profile-sugestions'>
         <FeedProfile
         profileImage={defaultProfile} 
-        username={"username"} 
-        fullName={"full name"} 
-        // handleLogout={}
+        username={user.username} 
+        fullName={user.full_name} 
+        handleLogout={handleLogout}
         />
         <div className='flex column sugestions'>
 
