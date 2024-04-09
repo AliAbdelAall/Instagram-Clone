@@ -17,37 +17,37 @@ class PostSeeder extends Seeder
         Post::create([
             'user_id' => 1, 
             'caption' => 'First post', 
-            'image_url' => 'image1.jpg'
+            'post_image' => 'image1.jpg'
         ]);
 
         Post::create([
             'user_id' => 2, 
             'caption' => 'Second post', 
-            'image_url' => 'image2.jpg'
+            'post_image' => 'image2.jpg'
         ]);
 
         Post::create([
             'user_id' => 3, 
             'caption' => 'Third post', 
-            'image_url' => 'image3.jpg'
+            'post_image' => 'image3.jpg'
         ]);
 
         Post::create([
-            'user_id' => 4, 'caption' => 
-            'Fourth post', 'image_url' => 
-            'image4.jpg'
+            'user_id' => 4, 
+            'caption' => 'Fourth post', 
+            'post_image' => 'image4.jpg'
         ]);
 
         Post::create([
             'user_id' => 5, 
             'caption' => 'Fifth post', 
-            'image_url' => 'image5.jpg'
+            'post_image' => 'image5.jpg'
         ]);
 
         Post::create([
             'user_id' => 6, 
             'caption' => 'Fifth post', 
-            'image_url' => 'image6.jpg'
+            'post_image' => 'image6.jpg'
         ]);
     }
 }   
