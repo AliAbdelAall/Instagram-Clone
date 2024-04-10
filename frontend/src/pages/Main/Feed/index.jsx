@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate } from "react-router-dom"
 
 // Styles
@@ -6,7 +6,6 @@ import "./style.css"
 
 // Images
 import defaultProfile from "../../../assets/profile/Default_pfp.jpg"
-import postImage from "../../../assets/other/background3.jpg"
 
 // Components
 import Post from './components/Post'
@@ -17,8 +16,9 @@ import SugestedUser from './components/SugestedUser'
 import { toast } from 'react-toastify'
 
 // Redux
-import { postsSliceName, setpostsState } from '../../../Core/redux/Feed/Feed'
-import { useDispatch, useSelector } from 'react-redux'
+import { postsSliceName } from '../../../Core/redux/Feed/Feed'
+import { userSliceName } from '../../../Core/redux/User/User'
+import { useSelector } from 'react-redux'
 
 // Utilities
 import { removeLocalUser } from '../../../Core/Tools/local/user'
@@ -26,10 +26,9 @@ import { removeLocalUser } from '../../../Core/Tools/local/user'
 const Feed = () => {
 
   const { posts, loading } = useSelector((global) => global[postsSliceName])
+  const { user } = useSelector((global) => global[userSliceName])
   const navigate = useNavigate()
-  const dispatcher = useDispatch()
 
-  
 
   const handleLogout = () => {
     removeLocalUser()
@@ -60,12 +59,12 @@ const Feed = () => {
        
       </div>
       <div className='flex column align-self-start profile-sugestions'>
-        {/* <FeedProfile
+        <FeedProfile
         profileImage={`http://localhost:8000/pfp/${user.profile_image}`}
         username={user.username} 
         fullName={user.full_name} 
         handleLogout={handleLogout}
-        /> */}
+        />
         <div className='flex column sugestions'>
 
           <p className='text-sm'>Sugested for you</p>

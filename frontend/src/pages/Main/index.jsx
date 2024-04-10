@@ -22,6 +22,7 @@ const Main = () => {
         const posts = setpostsState(response.data.posts)
         dispatcher(posts)
         const user = setUserInfo(response.data.user)
+        dispatcher(user)
       }
     }).catch((error)=>{
       toast.error("Somthing went wrong!")

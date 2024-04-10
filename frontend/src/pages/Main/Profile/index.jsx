@@ -1,48 +1,91 @@
 import React, { useEffect } from 'react'
-import { postsSliceName } from '../../../Core/redux/Feed/Feed'
+import { useNavigate } from "react-router-dom"
+
+
+// Styles
+import "./style.css"
+
+// images
+import postImage from "../../../assets/other/background3.jpg"
+
+// Redux
+import { userSliceName } from '../../../Core/redux/User/User'
 import { useSelector } from "react-redux"
+
+// compunents
+import ProfileButton from '../../../components/ProfileButton'
+
+//utilities
+import { removeLocalUser } from '../../../Core/Tools/local/user'
 
 const Profile = () => {
 
+  const navigate = useNavigate()
+
   useEffect(() => {}, )
 
-  const { user } = useSelector((global) => global[postsSliceName])
+  const { user } = useSelector((global) => global[userSliceName])
+  const { 
+    username, 
+    full_name, 
+    profile_image,
+    bio, 
+    posts_count,
+    followers_count,
+    following_count,
+    posts,
+  } = user
+
+
+  const handleLogout = () => {
+    removeLocalUser()
+    navigate("/")
+  }
   return (
-    <div className='flex align-center profile-container'>
+    <div className='flex center profile-container'>
       <div className='flex column profile-wrapper'>
-        <div className='flex'>
+        <div className='flex space-between profile-info'>
 
           
-          <img src={`http://localhost:8000/pfp/${user.profile_image}`} alt="profile_image" />
+          <img src={`http://localhost:8000/pfp/${profile_image}`} width={150} height={150} alt="profile_image" />
 
-          <div className='flex column'>
+          <div className='flex column profile-user-info'>
 
-            <div className='flex'>
-              <p>username</p>
-              <button>Edit profile</button>
-              <button>Log out</button>
+            <div className='flex align-center profile-btns '>
+              <p className='text-lg'>{username}</p>
+              <ProfileButton
+              className='profile-btn'
+              text={'Edit'}
+              />
+              <ProfileButton
+              className='profile-btn'
+              text={'Log out'}
+              handleClick={handleLogout}
+              />
             </div>
 
-            <div className='flex'>
-              <p>posts</p>
-              <p>followers</p>
-              <p>following</p>
+            <div className='flex profile-counts'>
+              <p>{`${posts_count} posts`}</p>
+              <p>{`${followers_count} followers`}</p>
+              <p>{`${following_count} following`}</p>
             </div>
 
             <div className='flex column'>
-              <p>Full Name</p>
-              <p>Bio</p>
+              <p>{full_name}</p>
+              <p>{bio}</p>
             </div>
           </div>
         </div>
         <div
         className=''>
-          <div>
+          <div className='flex space-around'>
             <p>POSTS</p>
             <p>Add post</p>
           </div>
-          <div>
-
+          <div className='flex wrap space-between profile-posts'>
+          {[3,2,1,4] && [3,2,1,4].map((post) => (
+            <img src={postImage} width={230} height={300} alt="post" />
+          ))}
           </div>
         </div>
       </div>
