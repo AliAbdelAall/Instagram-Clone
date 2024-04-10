@@ -28,7 +28,7 @@ const EditProfile = ({isOpen, setIsOpen}) => {
   console.log(image)
 
   const handleEditProfile = (() => {
-    sendRequest(requestMethods.PUT, "/edit-profile", {
+    sendRequest(requestMethods.POST, "/update-user", {
       profile_image: image,
       bio: bio,
     }).then((response) => {

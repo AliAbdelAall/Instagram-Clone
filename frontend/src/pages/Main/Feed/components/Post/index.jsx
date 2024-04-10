@@ -36,14 +36,17 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
   }
 
   const handleLikedSwitch = (id) => {
+    const toggle = toggleLiked(id)
+    dispatcher(toggle)
 
     liked ? 
     sendRequest(requestMethods.DELETE,`/delete-like/${id}`).then((response) => {
       if(response.status === 204){
-        const toggle = toggleLiked(id)
-        dispatcher(toggle)
+        toast.success('like delete')
       }
     }).catch((error)=> {
+      const toggle = toggleLiked(id)
+      dispatcher(toggle)
       toast.error("Something went wrong")
     })
     :
@@ -51,10 +54,11 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
       post_id:id
     }).then((response) => {
       if(response.status === 201){
-        const toggle = toggleLiked(id)
-        dispatcher(toggle)
+        toast.success('like saved')
       }
     }).catch((error)=> {
+      const toggle = toggleLiked(id)
+      dispatcher(toggle)
       toast.error("Something went wrong")
     })
     
@@ -65,7 +69,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
     <div className='flex column post-wrapper'>
 
           <div className='flex align-center user_info-post'>
-            <img className='profile-image' src={profileImage} width={32} hight={32} alt="profile" />
+            <img className='profile-image' src={profileImage} width={32} height={32} alt="profile" />
             <p className='username-post bold text-sm'>{username}</p>
           </div>
 

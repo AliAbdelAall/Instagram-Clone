@@ -19,7 +19,7 @@ const FeedProfile = ({ handleLogout}) => {
         className='profile-image' 
         src={`http://localhost:8000/pfp/${user.profile_image}`} 
         width={44} 
-        hight={44} 
+        height={44} 
         alt="profile"/>
         </Link>
         <div className='flex column user-name'>
