@@ -78,13 +78,17 @@ const Profile = () => {
         </div>
         <div
         className=''>
-          <div className='flex space-around'>
+          <div className='flex space-around add-post'>
             <p>POSTS</p>
-            <p>Add post</p>
+            <ProfileButton
+              className='profile-btn'
+              text={'Add Post'}
+              // handleClick={handleLogout}
+              />
           </div>
           <div className='flex wrap space-between profile-posts'>
           {[3,2,1,4] && [3,2,1,4].map((post) => (
-            <img src={postImage} width={230} height={300} alt="post" />
+            <img key={post} src={postImage} width={230} height={300} alt="post" />
           ))}
           </div>
         </div>

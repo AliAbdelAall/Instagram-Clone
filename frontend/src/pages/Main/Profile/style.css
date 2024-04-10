@@ -44,3 +44,7 @@
 .profile-posts::-webkit-scrollbar{
   display: none;
 }
+
+.add-post{
+  margin-bottom: 15px;
+}

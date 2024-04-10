@@ -60,9 +60,6 @@ const Feed = () => {
       </div>
       <div className='flex column align-self-start profile-sugestions'>
         <FeedProfile
-        profileImage={`http://localhost:8000/pfp/${user.profile_image}`}
-        username={user.username} 
-        fullName={user.full_name} 
         handleLogout={handleLogout}
         />
         <div className='flex column sugestions'>
