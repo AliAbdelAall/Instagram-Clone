@@ -24,4 +24,6 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 // User
 Route::post('/get-feed', [UserController::class, 'getFeed']);
-Route::Post('/add-comment', [UserController::class, 'addComment']);
+Route::post('/add-comment', [UserController::class, 'addComment']);
+Route::delete('/delete-like/{id}', [UserController::class, 'deleteLike']);
+Route::post('/add-like', [UserController::class, 'addLike']);

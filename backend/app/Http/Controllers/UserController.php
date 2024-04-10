@@ -8,6 +8,7 @@ use App\Models\Follow;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,4 +86,43 @@ class UserController extends Controller
             'comment' => $comment
         ]);
     }
+
+    public function deleteLike($id)
+    {
+        $user_id = Auth::user()->id;
+
+        // \Log::info('User ID: ' . $user_id . ', Like ID: ' . $id);
+
+        $like = Like::where('post_id', $id)->where('user_id', $user_id)->first();
+
+        if(!$like){
+            return response()->json(['message' => "Not Found"], 404);
+        }
+
+        $like->delete();
+
+        return response()->json([], 204);
+    }
+
+    public function addLike(Request $req)
+    {
+        $user_id = Auth::user()->id;
+
+        $req->validate([
+            'post_id' => 'required'
+        ]);
+        
+
+        $like = Like::create([
+            'user_id' => $user_id,
+            'post_id' => $req->post_id
+        ]);
+
+        return response()->json([
+            'status' => "success",
+            'message' => "Like created successfuly"
+        ], 201);
+    }
+
+    
 }

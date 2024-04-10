@@ -21,16 +21,8 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
   const [myComment, setMyComment] = useState("")
   const dispatcher = useDispatch()
 
-//   useEffect(() => {
-//     const controller = new AbortController();
-    
-//     return () => {
-//         return controller.abort();
-//     };
-// }, []);
-
   const handlePostClick = () => {
-    sendRequest(requestMethods.POST, "/save-comment",{
+    sendRequest(requestMethods.POST, "/add-comment",{
       post_id: id,
       comment: myComment
     }).then((response) => {
@@ -46,9 +38,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
   const handleLikedSwitch = (id) => {
 
     liked ? 
-    sendRequest(requestMethods.DELETE,"/delete-like",{
-      post_id: id
-    }).then((response) => {
+    sendRequest(requestMethods.DELETE,`/delete-like/${id}`).then((response) => {
       if(response.status === 204){
         const toggle = toggleLiked(id)
         dispatcher(toggle)
@@ -57,7 +47,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
       toast.error("Something went wrong")
     })
     :
-    sendRequest(requestMethods.POST, "add-like", {
+    sendRequest(requestMethods.POST, "/add-like", {
       post_id:id
     }).then((response) => {
       if(response.status === 201){
