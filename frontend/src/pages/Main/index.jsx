@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch } from "react-redux"
 import { setpostsState } from '../../Core/redux/Feed/Feed'
+import { setUserInfo } from '../../Core/redux/User/User'
 
 import { toast } from "react-toastify"
 
@@ -18,9 +19,9 @@ const Main = () => {
     sendRequest(requestMethods.POST, "/get-feed") 
     .then((response)=>{
       if(response.status === 200){
-        const posts = setpostsState({posts: response.data.posts, user: response.data.user})
+        const posts = setpostsState(response.data.posts)
         dispatcher(posts)
-        // const user = 
+        const user = setUserInfo(response.data.user)
       }
     }).catch((error)=>{
       toast.error("Somthing went wrong!")

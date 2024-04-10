@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   posts: [],
-  user: {},
   loading: true
 }
 
@@ -13,8 +12,7 @@ export const postsSlice = createSlice({
     setpostsState: (state, action) => {
       return {
         ...state,
-        posts: action.payload.posts,
-        user: action.payload.user,
+        posts: action.payload,
         loading: false
       }
     },

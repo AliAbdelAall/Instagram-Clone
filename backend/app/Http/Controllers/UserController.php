@@ -39,7 +39,9 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'],401);
         };
 
-        $user = User::withCount('followers', 'following', 'posts')->find($id);
+        $user = User::select("username", "email","full_name","bio","profile_image")
+                        ->withCount('followers', 'following', 'posts')
+                        ->find($id);
 
         $followedUserIds = Follow::where('follower_id', $id)->pluck('followed_id');
         $followedUserIds[] = $id;

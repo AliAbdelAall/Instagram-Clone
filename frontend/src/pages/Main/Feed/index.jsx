@@ -21,13 +21,11 @@ import { postsSliceName, setpostsState } from '../../../Core/redux/Feed/Feed'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Utilities
-import { sendRequest } from '../../../Core/Tools/remote/request'
-import { requestMethods } from '../../../Core/enums/requestMethods'
 import { removeLocalUser } from '../../../Core/Tools/local/user'
 
 const Feed = () => {
 
-  const { posts, user, loading } = useSelector((global) => global[postsSliceName])
+  const { posts, loading } = useSelector((global) => global[postsSliceName])
   const navigate = useNavigate()
   const dispatcher = useDispatch()
 
@@ -62,12 +60,12 @@ const Feed = () => {
        
       </div>
       <div className='flex column align-self-start profile-sugestions'>
-        <FeedProfile
+        {/* <FeedProfile
         profileImage={`http://localhost:8000/pfp/${user.profile_image}`}
         username={user.username} 
         fullName={user.full_name} 
         handleLogout={handleLogout}
-        />
+        /> */}
         <div className='flex column sugestions'>
 
           <p className='text-sm'>Sugested for you</p>
