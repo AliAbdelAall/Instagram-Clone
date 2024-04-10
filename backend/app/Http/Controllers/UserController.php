@@ -40,6 +40,7 @@ class UserController extends Controller
         };
 
         $user = User::select("username", "email","full_name","bio","profile_image")
+                        ->with('posts:post_image')
                         ->withCount('followers', 'following', 'posts')
                         ->find($id);
 

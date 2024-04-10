@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("ali12345"),
             'full_name' => "Ali Abdelaal",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
         User::create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("ahmad12345"),
             'full_name' => "Ahmad Farou",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
         User::create([
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("mhamad12345"),
             'full_name' => "Mhamad Ballan",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
         User::create([
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("hsein12345"),
             'full_name' => "Hsein Taktak",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
         User::create([
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("3laych12345"),
             'full_name' => "Ali Abdelaal",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
         User::create([
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make("wick12345"),
             'full_name' => "Ahmad Kabalan",
             'bio' => "Full Stack Web Developer",
-            'profile_image' => "Default_pfp.jpg"
+
         ]);
 
     }
