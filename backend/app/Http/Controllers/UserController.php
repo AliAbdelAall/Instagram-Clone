@@ -137,7 +137,6 @@ class UserController extends Controller
         if($req->hasFile('profile_image')){
             $req -> validate([
                 'profile_image' => 'image|mimes:jpeg,png,jpg',
-                'bio' => 'string'
             ]);
             $file = $req->file('profile_image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -149,7 +148,14 @@ class UserController extends Controller
             }
 
         $user->profile_image = $file_name;
-        $user->bio = $req->bio;
+        }
+
+        $req -> validate([
+            'bio' => 'string',
+        ]);
+
+        if($req->bio && $req->bio !== $user->bio){
+            $user->bio = $req->bio;
         }
 
         $user->save();
