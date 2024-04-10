@@ -4,13 +4,13 @@ const FeedProfile = ({profileImage, username, fullName, handleLogout}) => {
   return (
     <div className='flex align-center space-between '>
       <div className='flex center profile-feed'>
-        <img src={profileImage} width={44} hight={44} alt="profile" />
+        <img className='profile-image' src={profileImage} width={44} hight={44} alt="profile" />
         <div className='flex column user-name'>
           <p className='text-sm'>{username}</p>
           <p className='text-sm text-gray'>{fullName}</p>
         </div>
       </div>
-      <p className='text-sm text-primary' onClick={handleLogout}>Logout</p>
+      <p className='text-sm text-primary logout-button' onClick={handleLogout}>Logout</p>
     </div>
   )
 }

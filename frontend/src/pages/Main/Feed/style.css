@@ -17,17 +17,6 @@
   gap: 10px
 }
 
-/* .post-wrapper > textarea{
-  resize: none;
-  width: 100%;
-  padding: 5px 10px;
-  outline: none;
-  border: 1px solid var(--gray-col);
-  border-radius: 2px;
-  height: 38px;
-  min-height: max-content;
-} */
-
 .comment-post > textarea {
   resize: none;
   width: 90%;
@@ -60,4 +49,15 @@
 
 .sugestions{
   gap: 13px;
+}
+
+.user-post-profile,
+.heart,
+.comments,
+.post-comment,
+.profile-image,
+.logout-button,
+.follow-btn,
+.sugested-profile:hover{
+  cursor: pointer;
 }

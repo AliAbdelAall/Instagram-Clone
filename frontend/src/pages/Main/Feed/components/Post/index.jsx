@@ -65,7 +65,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
     <div className='flex column post-wrapper'>
 
           <div className='flex align-center user_info-post'>
-            <img src={profileImage} width={32} hight={32} alt="profile" />
+            <img className='user-post-profile' src={profileImage} width={32} hight={32} alt="profile" />
             <p className='username-post bold text-sm'>{username}</p>
           </div>
 
@@ -73,10 +73,10 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
 
           <div className='flex like-comment'>
             {liked ? 
-            (<img src={heartRed} alt="heart-red" onClick={() => handleLikedSwitch(id)}/>) :
-            (<img src={heart} alt="heart" onClick={() => handleLikedSwitch(id)}/>)
+            (<img className='heart' src={heartRed} alt="heart-red" onClick={() => handleLikedSwitch(id)}/>) :
+            (<img className='heart'  src={heart} alt="heart" onClick={() => handleLikedSwitch(id)}/>)
             }
-            <img src={commentIcon} alt="comment" />
+            <img className='comments' src={commentIcon} alt="comment" />
           </div>
 
           <p className='post_likes text-sm'>{likes} likes</p>
@@ -91,7 +91,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
             onChange={(e) => setMyComment(e.target.value)}
             ></textarea>
 
-            {myComment && <p className='text-sm text-primary' onClick={handlePostClick}>Post</p>}
+            {myComment && <p className='text-sm text-primary post-comment' onClick={handlePostClick}>Post</p>}
           </div> 
           <div className='sparator bg-gray-col'></div>
         </div>
