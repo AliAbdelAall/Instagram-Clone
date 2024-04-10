@@ -3,33 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\Commentt;
 use App\Models\Follow;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 class UserController extends Controller
 {   
-
-    public function getUserInfo(){
-
-        $user= Auth::user();
-        if(!$user){
-            return response()->json([
-                'Unauthorized',
-            ], 401);
-        }
-        return response()->json([
-            'status' => "success",
-            'user' => $user
-        ], 200);
-    }
-
 
     public function getFeed()
     {   
@@ -39,7 +23,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'],401);
         };
 
-        $user = User::select("username", "email","full_name","bio","profile_image")
+        $user = User::select("username","full_name","bio","profile_image")
                         ->with('posts:post_image')
                         ->withCount('followers', 'following', 'posts')
                         ->find($id);
@@ -74,6 +58,10 @@ class UserController extends Controller
 
         $id = Auth::user()->id;
 
+        if (!$id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
         $req->validate([
             'post_id' => 'required',
             'comment' => 'required'
@@ -95,6 +83,10 @@ class UserController extends Controller
     {
         $user_id = Auth::user()->id;
 
+        if (!$user_id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
         // \Log::info('User ID: ' . $user_id . ', Like ID: ' . $id);
 
         $like = Like::where('post_id', $id)->where('user_id', $user_id)->first();
@@ -112,6 +104,10 @@ class UserController extends Controller
     {
         $user_id = Auth::user()->id;
 
+        if (!$user_id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
         $req->validate([
             'post_id' => 'required'
         ]);
@@ -128,5 +124,40 @@ class UserController extends Controller
         ], 201);
     }
 
-    
+    public function updateUser(Request $req){
+
+        $id = Auth::user()->id;
+
+        $user = User::find($id);
+
+        if (!$user){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
+        if($req->hasFile('profile_image')){
+            $req -> validate([
+                'profile_image' => 'image|mimes:jpeg,png,jpg',
+                'bio' => 'string'
+            ]);
+            $file = $req->file('profile_image');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/pfp/'), $file_name);
+
+            $prev_image = public_path('/pfp/') . $user->profile_image;
+            if ($user->profile_image !== 'Default_pfp.jpg' && File::exists($prev_image)) {
+                File::delete($prev_image);
+            }
+
+        $user->profile_image = $file_name;
+        $user->bio = $req->bio;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'status' => "success",
+            'profile_image' => $user->profile_image,
+            'bio' => $user->bio
+        ], 200);
+    }
 }
