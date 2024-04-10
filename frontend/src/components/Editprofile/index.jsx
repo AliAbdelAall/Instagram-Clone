@@ -22,8 +22,8 @@ const EditProfile = ({isOpen, setIsOpen}) => {
 
   const { user } = useSelector((global) => global[userSliceName])
   const [bio, setBio] = useState([user.bio])
-  const [image, setImage] = useState()
-  const [previewImage, setPreviewImage] = useState()
+  const [image, setImage] = useState(user.profile_image)
+  const [previewImage, setPreviewImage] = useState(user.profile_image)
   const dispatcher = useDispatch()
   console.log(image)
 
@@ -37,7 +37,7 @@ const EditProfile = ({isOpen, setIsOpen}) => {
           profile_image: response.data.profile_image,
           bio: response.data.bio
         })
-        dispa(edit)
+        dispatcher(edit)
       }
     })
   })
@@ -57,7 +57,7 @@ const EditProfile = ({isOpen, setIsOpen}) => {
     <div className={`flex column center edit-container ${isOpen ? "" : "hidden"}`}>
       <div className='flex column edit-wrapper'>
         <input type="file" onChange={(e) => handleImageChange(e)}/>
-        {previewImage && <img src={previewImage} alt="post_image" accept="image/"/>}
+        {previewImage !== user.profile_image && <img src={previewImage} alt="post_image" accept="image/"/>}
         <div>
           <p>bio:</p>
           <textarea 
@@ -76,6 +76,8 @@ const EditProfile = ({isOpen, setIsOpen}) => {
         handleClick={ () => {
           setIsOpen(false)
           setBio([user.bio])
+          setPreviewImage(user.profile_image)
+          setImage(user.profile_image)
         }}
         />
       </div>

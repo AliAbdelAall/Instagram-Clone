@@ -52,7 +52,7 @@ const Profile = () => {
         <div className='flex space-between profile-info'>
 
           
-          <img src={`http://localhost:8000/pfp/${profile_image}`} width={150} height={150} alt="profile_image" />
+          <img className='profile-image' src={`http://localhost:8000/pfp/${profile_image}`} width={150} height={150} alt="profile_image" />
 
           <div className='flex column profile-user-info'>
 

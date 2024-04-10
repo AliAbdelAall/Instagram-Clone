@@ -65,7 +65,7 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
     <div className='flex column post-wrapper'>
 
           <div className='flex align-center user_info-post'>
-            <img className='user-post-profile' src={profileImage} width={32} hight={32} alt="profile" />
+            <img className='profile-image' src={profileImage} width={32} hight={32} alt="profile" />
             <p className='username-post bold text-sm'>{username}</p>
           </div>
 
