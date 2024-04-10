@@ -31,17 +31,7 @@ const Feed = () => {
   const navigate = useNavigate()
   const dispatcher = useDispatch()
 
-  useEffect(()=>{
-    sendRequest(requestMethods.POST, "/get-feed") 
-    .then((response)=>{
-      if(response.status === 200){
-        const posts = setpostsState({posts: response.data.posts, user: response.data.user})
-        dispatcher(posts)
-      }
-    }).catch((error)=>{
-      toast.error("Somthing went wrong!")
-    })
-  },[])
+  
 
   const handleLogout = () => {
     removeLocalUser()

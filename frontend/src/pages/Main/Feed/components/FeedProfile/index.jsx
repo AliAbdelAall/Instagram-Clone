@@ -9,7 +9,7 @@ const FeedProfile = ({profileImage, username, fullName, handleLogout}) => {
     <div className='flex align-center space-between '>
       <div className='flex center profile-feed'>
         <Link
-        to = "/profile"
+        to = "profile"
         >
         <img className='profile-image' src={profileImage} width={44} hight={44} alt="profile"/>
         </Link>
