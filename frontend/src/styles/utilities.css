@@ -1,21 +1,31 @@
 .bold {
   font-weight: bold;
 }
+
 .italic {
   font-style: italic;
 }
+
 .text-sm {
   font-size: var(--font-size-sm);
 }
+
 .text-xsm {
   font-size: var(--font-size-xsm);
 }
+
+.text-lg {
+  font-size: var(--font-size-2xl);
+}
+
 .text-center {
   text-align: center;
 }
+
 .text-end {
   text-align: end;
 }
+
 .underline {
   text-decoration: underline;
 }

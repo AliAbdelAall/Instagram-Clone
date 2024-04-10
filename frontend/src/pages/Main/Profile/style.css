@@ -1,0 +1,46 @@
+.profile-wrapper{
+  width:750px;
+  padding:20px
+}
+
+.profile-btns{
+  gap:40px;
+}
+
+.profile-btn{
+  width:100px;
+  padding: 4px 8px 3px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none; 
+}
+
+.profile-info{
+  min-height: 350px;
+}
+
+.profile-user-info{
+  gap: 10px;
+}
+
+.profile-counts{
+  gap: 25px;
+}
+
+.profile-counts>p{
+  font-size: var(--font-size-lg);
+  margin-top:10px ;
+}
+
+.profile-posts{
+  gap: 10px
+}
+
+.profile-posts{
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.profile-posts::-webkit-scrollbar{
+  display: none;
+}
