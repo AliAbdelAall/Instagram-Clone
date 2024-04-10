@@ -53,7 +53,8 @@ const Feed = () => {
       <div className='flex column posts-container'>
         
         {loading ? (<p>LOADING...</p>) : 
-        (posts?.map((post, i)=>(
+        (posts?.map((post)=>(
+
         <Post
         key={post.id}
         id = {post.id}
@@ -64,6 +65,7 @@ const Feed = () => {
         likes={post.likes} 
         caption={post.caption} 
         />
+        
         )))}
        
       </div>
