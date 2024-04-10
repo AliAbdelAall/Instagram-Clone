@@ -24,11 +24,15 @@ export const userSlice = createSlice({
         user: action.payload,
         loading: false
       }
+    },
+    updateUserInfo: (state, action) => {
+      state.bio = action.payload.bio
+      state.profile_image = action.payload.profile_image
     }
   }
 })
 
-export const { setUserInfo } = userSlice.actions
+export const { setUserInfo, updateUserInfo } = userSlice.actions
 
 export const userSliceName = userSlice.name
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 
 
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux"
 
 // compunents
 import ProfileButton from '../../../components/ProfileButton'
+import EditProfile from '../../../components/Editprofile'
 
 //utilities
 import { removeLocalUser } from '../../../Core/Tools/local/user'
@@ -21,8 +22,6 @@ import { removeLocalUser } from '../../../Core/Tools/local/user'
 const Profile = () => {
 
   const navigate = useNavigate()
-
-  useEffect(() => {}, )
 
   const { user } = useSelector((global) => global[userSliceName])
   const { 
@@ -36,6 +35,8 @@ const Profile = () => {
     posts,
   } = user
 
+  const [isOpen, setIsOpen] = useState(false)
+
 
   const handleLogout = () => {
     removeLocalUser()
@@ -43,6 +44,10 @@ const Profile = () => {
   }
   return (
     <div className='flex center profile-container'>
+      <EditProfile
+      setIsOpen={setIsOpen}
+      isOpen={isOpen}
+      />
       <div className='flex column profile-wrapper'>
         <div className='flex space-between profile-info'>
 
@@ -56,6 +61,7 @@ const Profile = () => {
               <ProfileButton
               className='profile-btn'
               text={'Edit'}
+              handleClick={() => setIsOpen(true)}
               />
               <ProfileButton
               className='profile-btn'
@@ -83,7 +89,7 @@ const Profile = () => {
             <ProfileButton
               className='profile-btn'
               text={'Add Post'}
-              // handleClick={handleLogout}
+              handleClick={handleLogout}
               />
           </div>
           <div className='flex wrap space-between profile-posts'>
