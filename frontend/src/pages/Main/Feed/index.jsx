@@ -17,7 +17,7 @@ import SugestedUser from './components/SugestedUser'
 import { toast } from 'react-toastify'
 
 // Redux
-import { postsSliceName, setpostsState, toggleLiked} from '../../../Core/redux/Feed/Feed'
+import { postsSliceName, setpostsState } from '../../../Core/redux/Feed/Feed'
 import { useDispatch, useSelector } from 'react-redux'
 
 // Utilities
@@ -58,20 +58,22 @@ const Feed = () => {
         <Post
         key={post.id}
         id = {post.id}
-        profileImage={defaultProfile} 
+        profileImage={`http://localhost:8000/pfp/${post.user.profile_image}`} 
+        // profileImage={`${process.env.MIX_APP_URL}/pfp/${post.user.profile_image}`} 
         username={post.user.username}
-        postImage={postImage}
+        postImage={`http://localhost:8000/posts/${post.post_image}`}
+        // postImage={`${process.env.MIX_APP_URL}/posts/${post.post_image}`}
         liked={post.liked} 
         likes={post.likes} 
         caption={post.caption} 
         />
-        
+
         )))}
        
       </div>
       <div className='flex column align-self-start profile-sugestions'>
         <FeedProfile
-        profileImage={defaultProfile} 
+        profileImage={`http://localhost:8000/pfp/${user.profile_image}`}
         username={user.username} 
         fullName={user.full_name} 
         handleLogout={handleLogout}
