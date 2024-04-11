@@ -32,7 +32,7 @@ const Feed = () => {
   const { user } = useSelector((global) => global[userSliceName])
   const [suggestions, setSuggestions] = useState([])
   const [isOpenComments, setIsOpenComments] = useState(false)
-  const [postId, setpostId] = useState(0)
+  const [postId, setPostId] = useState(0)
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -81,7 +81,7 @@ const Feed = () => {
         <Post
         key={post.id}
         id = {post.id}
-        setpostId={setpostId}
+        setPostId={setPostId}
         profileImage={`http://localhost:8000/pfp/${post.user.profile_image}`} 
         // profileImage={`${process.env.MIX_APP_URL}/pfp/${post.user.profile_image}`} 
         username={post.user.username}

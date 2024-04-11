@@ -35,5 +35,5 @@ Route::controller(UserController::class)->group(function (){
   Route::post('/add-post','addPost');
   Route::get('/get-suggestions','getSuggestions');
   Route::post('/create-follow','createFollow');
-  Route::get('/get-comments', 'getComments');
+  Route::post('/get-comments', 'getComments');
 });

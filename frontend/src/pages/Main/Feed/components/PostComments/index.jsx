@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import "./style.css"
 
@@ -8,7 +8,7 @@ import { requestMethods } from '../../../../../Core/enums/requestMethods'
 
 const PostComments = ({postId, isOpenComments , setIsOpenComments}) => {
 
-  const []
+  const [comments, setComments] = useState([])
   const handleCommentsClose = ((e)=>{
     if (e.target.id === 'comments'){
       setIsOpenComments(false)
@@ -16,8 +16,14 @@ const PostComments = ({postId, isOpenComments , setIsOpenComments}) => {
   })
 
   useEffect(()=>{
-    sendRequest(requestMethods.GET, '/get-comments').then((response)=>{
+    sendRequest(requestMethods.POST, '/get-comments', {
       post_id: postId
+    }).then((response)=>{
+      if (response.status === 200){
+        setComments(response.data.comments)
+      }
+    }).catch((error)=>{
+      console.error(error)
     })
   },[])
 
@@ -28,11 +34,14 @@ const PostComments = ({postId, isOpenComments , setIsOpenComments}) => {
     onMouseDown={(e)=>handleCommentsClose(e)}>
       <div className='flex column comments-wrapper'>
 
+      {comments && comments.map((comment)=>(
         <Comment
-        // username={}
-        // image={}
-        // comment={}
+        username={comment.user.username}
+        image={`http://localhost:8000/pfp/${comment.user.profile_image}`}
+        comment={comment.comment}
         />
+
+      ))}
 
      </div>
     </div>
