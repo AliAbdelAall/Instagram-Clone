@@ -7,6 +7,9 @@ import "./style.css"
 import { useDispatch, useSelector } from "react-redux"
 import { userSliceName, updateUserInfo } from '../../Core/redux/User/User'
 
+// Taostify
+import { toast } from "react-toastify"
+
 // Images
 import postImage from "../../assets/other/background3.jpg"
 
@@ -21,13 +24,16 @@ import { requestMethods } from '../../Core/enums/requestMethods'
 const EditProfile = ({isOpen, setIsOpen}) => {
 
   const { user } = useSelector((global) => global[userSliceName])
-  const [bio, setBio] = useState([user.bio])
-  const [image, setImage] = useState(user.profile_image)
-  const [previewImage, setPreviewImage] = useState(user.profile_image)
+
+  const [bio, setBio] = useState(user.bio)
+  const [image, setImage] = useState()
+  const [previewImage, setPreviewImage] = useState()
   const dispatcher = useDispatch()
+
   console.log(image)
 
   const handleEditProfile = (() => {
+
     sendRequest(requestMethods.POST, "/update-user", {
       profile_image: image,
       bio: bio,
@@ -38,18 +44,27 @@ const EditProfile = ({isOpen, setIsOpen}) => {
           bio: response.data.bio
         })
         dispatcher(edit)
+        toast.success('profile updated')
       }
+    }).catch((error) => {
+      toast.error("Something went wrong")
+      console.error(error)
     })
+    setIsOpen(false)
+
   })
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
-    setImage(file)
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      setPreviewImage(reader.result)
+    if(file){
+      setImage(file)
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        setPreviewImage(reader.result)
+      }
     }
+    
 
   }
   
@@ -57,7 +72,7 @@ const EditProfile = ({isOpen, setIsOpen}) => {
     <div className={`flex column center edit-container ${isOpen ? "" : "hidden"}`}>
       <div className='flex column edit-wrapper'>
         <input type="file" onChange={(e) => handleImageChange(e)}/>
-        {previewImage !== user.profile_image && <img src={previewImage} alt="post_image" accept="image/"/>}
+        {previewImage && <img src={previewImage} alt="post_image" accept="image/"/>}
         <div>
           <p>bio:</p>
           <textarea 
@@ -75,9 +90,8 @@ const EditProfile = ({isOpen, setIsOpen}) => {
         text={"Cancel"}
         handleClick={ () => {
           setIsOpen(false)
-          setBio([user.bio])
-          setPreviewImage(user.profile_image)
-          setImage(user.profile_image)
+          setBio(user.bio)
+          setPreviewImage()
         }}
         />
       </div>
