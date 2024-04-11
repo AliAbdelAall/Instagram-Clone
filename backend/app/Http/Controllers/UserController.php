@@ -128,11 +128,11 @@ class UserController extends Controller
 
         $id = Auth::user()->id;
 
-        $user = User::find($id);
-
-        if (!$user){
+        if (!$id){
             return response()->json(['message' => 'Unauthorized'],401);
         };
+
+        $user = User::find($id);
 
         if($req->hasFile('profile_image')){
             $req -> validate([
@@ -166,4 +166,24 @@ class UserController extends Controller
             'bio' => $user->bio
         ], 200);
     }
+
+    public function getSugestions(){
+
+        $id = Auth::id();
+
+        if (!$id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
+        $followers = Follow::where('follower_id', $id)->pluck('followed_id');
+
+        $sugestions = User::whereIn('follower_id', $followers)
+                            ->select("username", "profile_image")
+                            ->take(6)
+                            ->get();
+
+        return response()->json([
+            'sugestions'=>$sugestions
+        ], 200);
+    } 
 }
