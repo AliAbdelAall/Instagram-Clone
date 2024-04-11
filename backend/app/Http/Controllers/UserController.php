@@ -168,7 +168,7 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function getSugestions(){
+    public function getSuggestions(){
 
         $id = Auth::id();
 
@@ -176,15 +176,16 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'],401);
         };
 
-        $followers = Follow::where('follower_id', $id)->pluck('followed_id');
+        $followed = Follow::where('follower_id', $id)->pluck('followed_id');
+        $followed[] = $id;
 
-        $sugestions = User::whereIn('follower_id', $followers)
-                            ->select("username", "profile_image")
-                            ->take(6)
-                            ->get();
+        $suggestions = Follow::whereNotIn('followed_id', $followed)->pluck('followed_id');
+
+        $users = User::whereIn('id', $suggestions)->select('username', 'profile_image')->get();
 
         return response()->json([
-            'sugestions'=>$sugestions
+            'suggestions'=>$users,
+
         ], 200);
     }
 

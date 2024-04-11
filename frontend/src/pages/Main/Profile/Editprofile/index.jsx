@@ -13,7 +13,6 @@ import { toast } from "react-toastify"
 
 // Components
 import ProfileButton from '../../../../components/ProfileButton'
-import { handleInputChange } from '../../../../Core/redux/Auth'
 import { sendRequest } from '../../../../Core/Tools/remote/request'
 import { requestMethods } from '../../../../Core/enums/requestMethods'
 
