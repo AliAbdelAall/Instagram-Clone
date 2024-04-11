@@ -42,6 +42,18 @@ const Feed = () => {
     })
   },[])
 
+  const handleFollowClick = (id) => {
+    sendRequest(requestMethods.POST, '/create-follow', {
+      followed_id: id
+    }).then((response)=>{
+      if(response.status === 201){
+        toast.success("follow created successfully")
+      }
+    }).catch((error)=>{
+      toast.error("Something went wrong")
+    })
+  }
+
   const handleLogout = () => {
     removeLocalUser()
     navigate("/")
