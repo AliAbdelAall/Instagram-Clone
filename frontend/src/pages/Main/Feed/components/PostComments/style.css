@@ -17,6 +17,13 @@
 
 .comment-wrapper{
   margin-bottom: 20px;
+  max-height: 700px;
+  overflow: scroll;
+
+}
+
+.comment-wrapper::-webkit-scrollbar{
+  display: none;
 }
 
 .comment-wrapper>img{

@@ -16,7 +16,7 @@ import { toast } from "react-toastify"
 import { requestMethods } from '../../../../../Core/enums/requestMethods'
 import { sendRequest } from '../../../../../Core/Tools/remote/request'
 
-const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) => {
+const Post = ({ id, setPostId, profileImage, username, postImage, liked, likes, caption, setIsOpenComments }) => {
 
   const [myComment, setMyComment] = useState("")
   const dispatcher = useDispatch()
@@ -80,7 +80,14 @@ const Post = ({ id, profileImage, username, postImage, liked, likes, caption }) 
             (<img className='heart' src={heartRed} alt="heart-red" onClick={() => handleLikedSwitch(id)}/>) :
             (<img className='heart'  src={heart} alt="heart" onClick={() => handleLikedSwitch(id)}/>)
             }
-            <img className='comments' src={commentIcon} alt="comment" />
+            <img 
+            className='comments' 
+            src={commentIcon} 
+            alt="comment" 
+            onClick={() => {
+              setIsOpenComments(true)
+              setPostId(id)
+              }}/>
           </div>
 
           <p className='post_likes text-sm'>{likes} likes</p>

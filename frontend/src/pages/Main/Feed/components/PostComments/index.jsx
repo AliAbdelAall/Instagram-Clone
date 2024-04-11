@@ -1,19 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import "./style.css"
 
-const PostComments = ({isOpenComments = true, setIsOpenComments}) => {
+import Comment from '../../../../../components/Comment'
+import { sendRequest } from '../../../../../Core/Tools/remote/request'
+import { requestMethods } from '../../../../../Core/enums/requestMethods'
+
+const PostComments = ({postId, isOpenComments , setIsOpenComments}) => {
+
+  const []
+  const handleCommentsClose = ((e)=>{
+    if (e.target.id === 'comments'){
+      setIsOpenComments(false)
+    }
+  })
+
+  useEffect(()=>{
+    sendRequest(requestMethods.GET, '/get-comments').then((response)=>{
+      post_id: postId
+    })
+  },[])
+
   return (
-    <div className={`flex column center comments-container ${isOpenComments ? "" : "hidden"}`}>
+    <div 
+    className={`flex column center comments-container ${isOpenComments ? "" : "hidden"}` } 
+    id="comments" 
+    onMouseDown={(e)=>handleCommentsClose(e)}>
       <div className='flex column comments-wrapper'>
 
-        <div className='flex column comment-wrapper'>
-          <div className='flex'>
-            <img width={32} height={32} src="$" alt="" />
-            <p>username</p>
-          </div>
-          <p>comment</p>
-        </div>
+        <Comment
+        // username={}
+        // image={}
+        // comment={}
+        />
 
      </div>
     </div>

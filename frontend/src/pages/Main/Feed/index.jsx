@@ -31,6 +31,8 @@ const Feed = () => {
   const { posts, loading } = useSelector((global) => global[postsSliceName])
   const { user } = useSelector((global) => global[userSliceName])
   const [suggestions, setSuggestions] = useState([])
+  const [isOpenComments, setIsOpenComments] = useState(false)
+  const [postId, setpostId] = useState(0)
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -64,7 +66,11 @@ const Feed = () => {
 
   return (
     <div className='flex center feed-continer'>
-      <PostComments/>
+      <PostComments
+      postId={postId}
+      isOpenComments={isOpenComments}
+      setIsOpenComments={setIsOpenComments}
+      />
       <div className='flex column posts-container'>
 
         
@@ -75,12 +81,14 @@ const Feed = () => {
         <Post
         key={post.id}
         id = {post.id}
+        setpostId={setpostId}
         profileImage={`http://localhost:8000/pfp/${post.user.profile_image}`} 
         // profileImage={`${process.env.MIX_APP_URL}/pfp/${post.user.profile_image}`} 
         username={post.user.username}
         postImage={`http://localhost:8000/posts/${post.post_image}`}
         // postImage={`${process.env.MIX_APP_URL}/posts/${post.post_image}`}
-        liked={post.liked} 
+        liked={post.liked}
+        setIsOpenComments={setIsOpenComments} 
         likes={post.likes} 
         caption={post.caption} 
         />
