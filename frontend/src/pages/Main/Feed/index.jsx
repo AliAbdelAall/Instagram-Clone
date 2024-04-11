@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 
 // Styles
@@ -22,13 +22,25 @@ import { useSelector } from 'react-redux'
 
 // Utilities
 import { removeLocalUser } from '../../../Core/Tools/local/user'
+import { sendRequest } from '../../../Core/Tools/remote/request'
+import { requestMethods } from '../../../Core/enums/requestMethods'
 
 const Feed = () => {
 
   const { posts, loading } = useSelector((global) => global[postsSliceName])
   const { user } = useSelector((global) => global[userSliceName])
+  const [suggestions, setSuggestions] = useState([])
   const navigate = useNavigate()
 
+  useEffect(()=>{
+    sendRequest(requestMethods.GET, '/get-suggestions').then((response)=>{
+      if(response.status === 200){
+        setSuggestions(response.data.suggestions)
+      }
+    }).catch((error)=>{
+      toast.error("Something went wrong")
+    })
+  },[])
 
   const handleLogout = () => {
     removeLocalUser()
@@ -65,21 +77,16 @@ const Feed = () => {
         <div className='flex column sugestions'>
 
           <p className='text-sm'>Sugested for you</p>
-
+        {suggestions && suggestions.map((user)=>(
           <SugestedUser
-          profileImage={defaultProfile}
-          username={"username"}
+          key={user.id}
+          id={user.id}
+          profileImage={`http://localhost:8000/pfp/${user.profile_image}`}
+          username={user.username}
+          handleFollowClick={handleFollowClick}
           />
 
-          <SugestedUser
-          profileImage={defaultProfile}
-          username={"username"}
-          />
-
-          <SugestedUser
-          profileImage={defaultProfile}
-          username={"username"}
-          />
+        ))}
 
         </div>
       </div>
