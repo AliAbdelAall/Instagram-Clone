@@ -185,5 +185,33 @@ class UserController extends Controller
         return response()->json([
             'sugestions'=>$sugestions
         ], 200);
-    } 
+    }
+
+    public function addPost(Request $req){
+
+        $id = Auth::id();
+
+        if (!$id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
+        $req->validate([
+            'post_image' => 'required|image|mimes:jpeg,png,jpg',
+            'caption' => 'nullable|string|max:255',
+        ]);
+
+        $image = $req->file('post_image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('post_images'), $imageName);
+
+        $post = Post::create([
+            'user_id' => $id,
+            'post_image' => $imageName,
+            'caption' => $req->caption,
+        ]);
+        $post->save();
+
+        return response()->json(['message' => 'Post created successfully', 'post' => $post], 201);
+        
+    }
 }
