@@ -45,6 +45,18 @@ const AddPost = ({isOpenPost, setIsOpenPost}) => {
 
   })
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    if(file){
+      setImage(file)
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        setPreviewImage(reader.result)
+      }
+    }
+  }
+
   return (
     <div className={`flex column center edit-container ${isOpenPost ? "" : "hidden"}`}>
       <div className='flex column edit-wrapper'>
@@ -61,7 +73,7 @@ const AddPost = ({isOpenPost, setIsOpenPost}) => {
         <div className='flex space-around'>
         <ProfileButton
         text={"Confirm"}
-        // handleClick={handleAddPost}
+        handleClick={handleAddPost}
         />
         <ProfileButton
         text={"Cancel"}

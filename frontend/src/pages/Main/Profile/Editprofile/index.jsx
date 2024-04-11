@@ -62,8 +62,6 @@ const EditProfile = ({isOpen, setIsOpen}) => {
         setPreviewImage(reader.result)
       }
     }
-    
-
   }
   
   return (
