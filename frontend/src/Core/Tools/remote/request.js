@@ -12,7 +12,8 @@ export const sendRequest = async (method, route, body) => {
       url: route,
       data: body,
       headers: {
-        Authorization: `bearer ${token}`
+        'Authorization': `bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
       }
     })
 

@@ -29,3 +29,4 @@ Route::delete('/delete-like/{id}', [UserController::class, 'deleteLike']);
 Route::post('/add-like', [UserController::class, 'addLike']);
 Route::post('/update-user', [UserController::class, 'updateUser']);
 Route::post('/add-post', [UserController::class, 'addPost']);
+Route::get('/get-sugestions', [UserController::class, 'getSugestions']);

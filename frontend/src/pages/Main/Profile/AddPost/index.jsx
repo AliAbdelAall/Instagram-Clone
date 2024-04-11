@@ -25,13 +25,13 @@ const AddPost = ({isOpenPost, setIsOpenPost}) => {
   console.log(image)
 
   const handleAddPost = (() => {
-    sendRequest(requestMethods.POST, "/add-post", {
-      profile_image: image,
-      caption: caption,
-    }).then((response) => {
+    const formData = new FormData
+    formData.append('post_image', image)
+    formData.append('caption', caption)
+    sendRequest(requestMethods.POST, "/add-post", formData).then((response) => {
       if(response.status === 200){
         const add = addUserPost({
-          profile_image: response.data.profile_image,
+          post_image: response.data.post_image,
           caption: response.data.caption
         })
         dispatcher(add)

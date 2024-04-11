@@ -24,9 +24,10 @@ class UserController extends Controller
         };
 
         $user = User::select("username","full_name","bio","profile_image")
-                        ->with('posts:post_image')
                         ->withCount('followers', 'following', 'posts')
                         ->find($id);
+        
+        $user->posts = Post::where('user_id', $id)->select('post_image')->get();
 
         $followedUserIds = Follow::where('follower_id', $id)->pluck('followed_id');
         $followedUserIds[] = $id;
