@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react'
+import { Outlet } from "react-router-dom"
 
+// Redux
 import { useDispatch } from "react-redux"
 import { setpostsState } from '../../Core/redux/Feed/Feed'
 import { setUserInfo } from '../../Core/redux/User/User'
 
+// Toastify
 import { toast } from "react-toastify"
 
+// Utilities
 import { sendRequest } from '../../Core/Tools/remote/request'
 import { requestMethods } from '../../Core/enums/requestMethods'
 
-import { Outlet } from "react-router-dom"
+// Components
+import Header from '../../components/Header'
+
 
 const Main = () => {
 
@@ -31,7 +37,8 @@ const Main = () => {
 
   return (
     <>
-    <Outlet/>
+      <Header/>
+      <Outlet/>
     </>
   )
 }
