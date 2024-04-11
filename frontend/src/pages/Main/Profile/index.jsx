@@ -39,7 +39,8 @@ const Profile = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPost, setIsOpenPost] = useState(false)
 
-
+  console.log(profile_image)
+  
   const handleLogout = () => {
     removeLocalUser()
     navigate("/")
@@ -87,7 +88,7 @@ const Profile = () => {
 
             <div className='flex column'>
               <p>{full_name}</p>
-              <p>{user.bio}</p>
+              <p>{bio}</p>
             </div>
           </div>
         </div>
@@ -101,9 +102,10 @@ const Profile = () => {
               handleClick={() => setIsOpenPost(true)}
               />
           </div>
-          <div className='flex wrap space-between profile-posts'>
-          {[3,2,1,4] && [3,2,1,4].map((post) => (
-            <img key={post} src={postImage} width={230} height={300} alt="post" />
+          <div className='flex wrap profile-posts'>
+          {posts && posts.map((post) => (
+            
+            <img key={post.id} src={`http://localhost:8000/posts/${post.post_image}`} width={230} height={300} alt="post" />
           ))}
           </div>
         </div>

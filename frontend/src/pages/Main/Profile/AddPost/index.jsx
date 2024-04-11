@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // Redux
 import { useDispatch, useSelector } from "react-redux"
-import { userSliceName, updateUserInfo } from '../../../../Core/redux/User/User'
+import { userSliceName, addUserPost } from '../../../../Core/redux/User/User'
 
 // Taostify
 import { toast } from "react-toastify"
@@ -22,17 +22,15 @@ const AddPost = ({isOpenPost, setIsOpenPost}) => {
   const [previewImage, setPreviewImage] = useState()
   const dispatcher = useDispatch()
 
-  console.log(image)
-
   const handleAddPost = (() => {
     const formData = new FormData
     formData.append('post_image', image)
     formData.append('caption', caption)
     sendRequest(requestMethods.POST, "/add-post", formData).then((response) => {
-      if(response.status === 200){
+      if(response.status === 201){
         const add = addUserPost({
-          post_image: response.data.post_image,
-          caption: response.data.caption
+          id: response.data.post.id,
+          post_image: response.data.post.post_image,
         })
         dispatcher(add)
         toast.success('Post added successfuly')
@@ -42,7 +40,6 @@ const AddPost = ({isOpenPost, setIsOpenPost}) => {
       console.error(error)
     })
     setIsOpenPost(false)
-
   })
 
   const handleImageChange = (e) => {

@@ -27,7 +27,7 @@ class UserController extends Controller
                         ->withCount('followers', 'following', 'posts')
                         ->find($id);
         
-        $user->posts = Post::where('user_id', $id)->select('post_image')->get();
+        $user->posts = Post::where('user_id', $id)->select('id','post_image')->get();
 
         $followedUserIds = Follow::where('follower_id', $id)->pluck('followed_id');
         $followedUserIds[] = $id;
@@ -203,7 +203,7 @@ class UserController extends Controller
 
         $image = $req->file('post_image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('post_images'), $imageName);
+        $image->move(public_path('posts'), $imageName);
 
         $post = Post::create([
             'user_id' => $id,

@@ -41,6 +41,10 @@ const EditProfile = ({isOpen, setIsOpen}) => {
           profile_image: response.data.profile_image,
           bio: response.data.bio
         })
+        console.log({
+          profile_image: response.data.profile_image,
+          bio: response.data.bio
+        })
         dispatcher(edit)
         toast.success('profile updated')
       }
