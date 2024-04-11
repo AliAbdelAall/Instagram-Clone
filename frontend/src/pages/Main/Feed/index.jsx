@@ -11,6 +11,7 @@ import defaultProfile from "../../../assets/profile/Default_pfp.jpg"
 import Post from './components/Post'
 import FeedProfile from './components/FeedProfile'
 import SugestedUser from './components/SugestedUser'
+import PostComments from './components/PostComments'
 
 // Taostify
 import { toast } from 'react-toastify'
@@ -63,7 +64,10 @@ const Feed = () => {
 
   return (
     <div className='flex center feed-continer'>
+      <PostComments/>
       <div className='flex column posts-container'>
+
+        
         
         {loading ? (<p>LOADING...</p>) : 
         (posts?.map((post)=>(
