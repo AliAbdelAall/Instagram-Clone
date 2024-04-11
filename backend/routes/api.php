@@ -30,3 +30,4 @@ Route::post('/add-like', [UserController::class, 'addLike']);
 Route::post('/update-user', [UserController::class, 'updateUser']);
 Route::post('/add-post', [UserController::class, 'addPost']);
 Route::get('/get-suggestions', [UserController::class, 'getSuggestions']);
+Route::post('/create-follow', [UserController::class, 'createFollow']);

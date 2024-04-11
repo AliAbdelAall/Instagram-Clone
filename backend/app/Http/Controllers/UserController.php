@@ -181,7 +181,7 @@ class UserController extends Controller
 
         $suggestions = Follow::whereNotIn('followed_id', $followed)->pluck('followed_id');
 
-        $users = User::whereIn('id', $suggestions)->select('username', 'profile_image')->get();
+        $users = User::whereIn('id', $suggestions)->select('id','username', 'profile_image')->get();
 
         return response()->json([
             'suggestions'=>$users,
@@ -216,4 +216,26 @@ class UserController extends Controller
         return response()->json(['message' => 'Post created successfully', 'post' => $post], 201);
         
     }
+
+    public function createFollow(Request $req){
+        
+        $id = Auth::id();
+
+        $req->validate([
+            'followed_id' => 'required|integer'
+        ]);
+        
+        $follow = Follow::create([
+            'followed_id' => $req->followed_id,
+            'follower_id' => $id 
+        ]);
+        
+        $follow->save();
+
+        return response()->json([
+            'message' => 'follow created successfuly'
+        ], 201);
+        
+    }
+
 }
