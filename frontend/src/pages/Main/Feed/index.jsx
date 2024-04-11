@@ -48,6 +48,8 @@ const Feed = () => {
     }).then((response)=>{
       if(response.status === 201){
         toast.success("follow created successfully")
+        const newSuggestions = suggestions.filter((suggestion)=> suggestion.id !== id)
+        setSuggestions(newSuggestions)
       }
     }).catch((error)=>{
       toast.error("Something went wrong")
