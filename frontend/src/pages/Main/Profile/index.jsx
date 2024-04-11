@@ -14,7 +14,8 @@ import { useSelector } from "react-redux"
 
 // compunents
 import ProfileButton from '../../../components/ProfileButton'
-import EditProfile from '../../../components/Editprofile'
+import EditProfile from './Editprofile'
+import AddPost from './AddPost'
 
 //utilities
 import { removeLocalUser } from '../../../Core/Tools/local/user'
@@ -36,6 +37,7 @@ const Profile = () => {
   } = user
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenPost, setIsOpenPost] = useState(false)
 
 
   const handleLogout = () => {
@@ -48,6 +50,13 @@ const Profile = () => {
       setIsOpen={setIsOpen}
       isOpen={isOpen}
       />
+
+      <AddPost
+      setIsOpenPost={setIsOpenPost}
+      isOpenPost={isOpenPost}
+      />
+      
+
       <div className='flex column profile-wrapper'>
         <div className='flex space-between profile-info'>
 
@@ -78,7 +87,7 @@ const Profile = () => {
 
             <div className='flex column'>
               <p>{full_name}</p>
-              <p>{bio}</p>
+              <p>{user.bio}</p>
             </div>
           </div>
         </div>
@@ -89,7 +98,7 @@ const Profile = () => {
             <ProfileButton
               className='profile-btn'
               text={'Add Post'}
-              handleClick={handleLogout}
+              handleClick={() => setIsOpenPost(true)}
               />
           </div>
           <div className='flex wrap space-between profile-posts'>

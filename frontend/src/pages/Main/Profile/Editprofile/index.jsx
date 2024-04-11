@@ -5,19 +5,17 @@ import "./style.css"
 
 // Redux
 import { useDispatch, useSelector } from "react-redux"
-import { userSliceName, updateUserInfo } from '../../Core/redux/User/User'
+import { userSliceName, updateUserInfo } from '../../../../Core/redux/User/User'
 
 // Taostify
 import { toast } from "react-toastify"
 
-// Images
-import postImage from "../../assets/other/background3.jpg"
 
 // Components
-import ProfileButton from '../ProfileButton'
-import { handleInputChange } from '../../Core/redux/Auth'
-import { sendRequest } from '../../Core/Tools/remote/request'
-import { requestMethods } from '../../Core/enums/requestMethods'
+import ProfileButton from '../../../../components/ProfileButton'
+import { handleInputChange } from '../../../../Core/redux/Auth'
+import { sendRequest } from '../../../../Core/Tools/remote/request'
+import { requestMethods } from '../../../../Core/enums/requestMethods'
 
 
 
