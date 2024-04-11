@@ -18,16 +18,22 @@ use App\Models\User;
 */
 
 // Authentication 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::controller(AuthController::class)->group(function (){
+  Route::post('/login', 'login');
+  Route::post('/register', 'register');
+  Route::post('/logout', 'logout');
+});
+
 
 // User
-Route::post('/get-feed', [UserController::class, 'getFeed']);
-Route::post('/add-comment', [UserController::class, 'addComment']);
-Route::delete('/delete-like/{id}', [UserController::class, 'deleteLike']);
-Route::post('/add-like', [UserController::class, 'addLike']);
-Route::post('/update-user', [UserController::class, 'updateUser']);
-Route::post('/add-post', [UserController::class, 'addPost']);
-Route::get('/get-suggestions', [UserController::class, 'getSuggestions']);
-Route::post('/create-follow', [UserController::class, 'createFollow']);
+
+Route::controller(UserController::class)->group(function (){
+  Route::post('/get-feed', 'getFeed');
+  Route::post('/add-comment','addComment');
+  Route::delete('/delete-like/{id}','deleteLike');
+  Route::post('/add-like','addLike');
+  Route::post('/update-user','updateUser');
+  Route::post('/add-post','addPost');
+  Route::get('/get-suggestions','getSuggestions');
+  Route::post('/create-follow','createFollow');
+});

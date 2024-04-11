@@ -176,10 +176,18 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'],401);
         };
 
-        $followed = Follow::where('follower_id', $id)->pluck('followed_id');
-        $followed[] = $id;
+        $user = User::find($id);
 
-        $suggestions = Follow::whereNotIn('followed_id', $followed)->pluck('followed_id');
+        if(!$user->following()){
+            $suggestions = Follow::take(6)->pluck('followed_id');
+        }else{
+            $followed = Follow::where('follower_id', $id)->pluck('followed_id');
+            $followed[] = $id;
+    
+            $suggestions = Follow::whereNotIn('followed_id', $followed)->pluck('followed_id');
+        }
+
+       
 
         $users = User::whereIn('id', $suggestions)->select('id','username', 'profile_image')->get();
 

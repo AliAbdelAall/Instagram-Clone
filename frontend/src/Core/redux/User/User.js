@@ -39,6 +39,7 @@ export const userSlice = createSlice({
         ...state,
         user: {
           ...state.user,
+          posts_count: state.user.posts_count + 1,
           posts: [
             ...state.user.posts,
             {

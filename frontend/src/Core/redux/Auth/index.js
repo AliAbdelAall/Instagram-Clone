@@ -31,6 +31,11 @@ export const registrationSlice = createSlice({
       state.errorMessage = ""
     },
 
+    setError: (state, action) => {
+      state.error = true
+      state.errorMessage = action.payload
+    },
+
     resetError: (state, action) => {
       state.error = false
       state.errorMessage = ""

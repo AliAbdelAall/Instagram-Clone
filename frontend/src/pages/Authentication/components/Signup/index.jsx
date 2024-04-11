@@ -33,7 +33,7 @@ const Signup = () => {
       return
     }
     if (username.length < 6){
-      const errorAction = setError("Usename must be at least 6 charaters")
+      const errorAction = setError("Username must be at least 6 charaters")
       dispatcher(errorAction)
       return
     }
