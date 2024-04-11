@@ -246,4 +246,25 @@ class UserController extends Controller
         
     }
 
+    public function getComments(Request $req){
+
+        $id = Auth::id();
+
+        if (!$id){
+            return response()->json(['message' => 'Unauthorized'],401);
+        };
+
+        $req->validate([
+            'post_id' => 'required'
+        ]);
+
+        $comments = Comment::where('post_id', $req->post_id)
+                            ->select('id','user_id','comment')
+                            ->with('user:id,username,profile_image')->get();
+
+        return response()->json([
+            'comments' => $comments
+        ], 200);
+    }
+
 }

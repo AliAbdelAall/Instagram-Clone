@@ -26,7 +26,6 @@ Route::controller(AuthController::class)->group(function (){
 
 
 // User
-
 Route::controller(UserController::class)->group(function (){
   Route::post('/get-feed', 'getFeed');
   Route::post('/add-comment','addComment');
@@ -36,4 +35,5 @@ Route::controller(UserController::class)->group(function (){
   Route::post('/add-post','addPost');
   Route::get('/get-suggestions','getSuggestions');
   Route::post('/create-follow','createFollow');
+  Route::get('/get-comments', 'getComments');
 });
